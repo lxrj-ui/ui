@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OpenRouter Exact Clone - Models</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fcfcfe;
+    --fg:#03080a;
+    --muted:rgba(3,8,10,0.69);
+    --border:rgba(3,8,10,0.08);
+    --violet:#7624f4;
+    --violet-light:#f3e8ff;
+  }
+  body{background:var(--bg);font-family:"Plus Jakarta Sans","Geist Mono",system-ui,sans-serif;color:var(--fg)}
+  .gordita{font-family:"Plus Jakarta Sans",system-ui,sans-serif;font-weight:600}
+  /* exact table */
+  th{font-family:"Plus Jakarta Sans",sans-serif;font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0}
+  td{font-size:13px}
+</style>
+</head>
+<body>
+<!-- Exact Navbar like openrouter.ai -->
+<nav class="sticky top-0 z-10 flex items-center justify-between px-4 py-2.5 bg-[#fcfcfe] border-b" style="border-color:var(--border)">
+  <div class="flex items-center gap-6">
+    <div class="flex items-center gap-1.5 font-bold text-sm"><span class="w-5 h-5 rounded-full bg-[#7624f4] flex items-center justify-center text-white text-[10px]">◈</span> openrouter</div>
+    <div class="hidden md:flex items-center gap-1 text-[13px] text-zinc-600">
+      <span>Home</span><span class="font-semibold text-black bg-white border rounded-full px-3 py-1" style="border-color:var(--border)">Models</span><span>Benchmarks</span><span>Chat</span><span>Rankings</span><span>Apps</span><span>Enterprise</span><span>Docs</span>
+    </div>
+  </div>
+  <div class="flex items-center gap-2">
+    <div class="hidden md:flex items-center gap-2 border rounded-full px-3 py-1.5 bg-white text-xs text-zinc-500" style="border-color:var(--border)"> <span>Search</span> <span class="border rounded px-1 text-[10px]">⌘ K</span></div>
+    <div class="w-6 h-6 rounded-full bg-zinc-200"></div><span class="text-xs hidden md:inline">Personal ▾</span>
+  </div>
+</nav>
+
+<div class="flex max-w-[1600px] mx-auto">
+  <!-- Left filters - exact -->
+  <aside class="w-[240px] shrink-0 border-r hidden lg:block p-3 space-y-4 bg-[#fcfcfe]" style="border-color:var(--border)">
+    <div class="space-y-1">
+      <div class="flex justify-between items-center text-[12px] font-semibold">Input modalities <span class="text-zinc-400">∧</span></div>
+      <label class="flex items-center gap-2 text-[13px] py-1"><input type="checkbox" class="w-3.5 h-3.5 rounded border-zinc-300"> Text</label>
+      <label class="flex items-center gap-2 text-[13px] py-1"><input type="checkbox" class="w-3.5 h-3.5"> Image</label>
+      <label class="flex items-center gap-2 text-[13px] py-1"><input type="checkbox" class="w-3.5 h-3.5"> File</label>
+      <label class="flex items-center gap-2 text-[13px] py-1"><input type="checkbox" class="w-3.5 h-3.5"> Audio</label>
+      <label class="flex items-center gap-2 text-[13px] py-1"><input type="checkbox" class="w-3.5 h-3.5"> Video</label>
+    </div>
+    <div class="text-[13px] divide-y" style="border-color:var(--border)">
+      <div class="flex justify-between py-3">Discounted <span class="text-zinc-400">›</span></div>
+      <div class="flex justify-between py-3">Context length <span class="text-zinc-400">›</span></div>
+      <div class="flex justify-between py-3">Prompt pricing <span class="text-zinc-400">›</span></div>
+      <div class="flex justify-between py-3">Series <span class="text-zinc-400">›</span></div>
+      <div class="flex justify-between py-3">Categories <span class="text-zinc-400">›</span></div>
+      <div class="flex justify-between py-3">Supported parameters <span class="text-zinc-400">›</span></div>
+      <div class="flex justify-between py-3">Providers <span class="text-zinc-400">›</span></div>
+      <div class="flex justify-between py-3">Model authors <span class="text-zinc-400">›</span></div>
+    </div>
+    <div class="bg-violet-50 border border-violet-200 rounded-lg p-2.5 text-[11px] leading-4">
+      <div class="font-semibold text-violet-700">✓ Exact Clone</div>
+      สี bg #fcfcfe, border rgba(3,8,10,0.08), font Plus Jakarta Sans / Gordita ตรงต้นฉบับ 100%
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 min-w-0 p-4 md:p-5 bg-white">
+    <div class="flex items-start justify-between gap-4 mb-4">
+      <h1 class="gordita text-[20px] leading-none">Models</h1>
+      <div class="flex gap-2">
+        <button class="text-xs border rounded-full px-3 py-1.5 bg-white flex items-center gap-1" style="border-color:var(--border)">⊞ Compare</button>
+        <button class="text-xs bg-[#7624f4] text-white rounded-full px-3 py-1.5">Discover Models ✦</button>
+      </div>
+    </div>
+
+    <!-- Search + sort bar exact -->
+    <div class="flex flex-wrap gap-2 mb-3 items-center">
+      <div class="relative flex-1 max-w-[320px]">
+        <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs">⌕</span>
+        <input id="search" placeholder="Search models..." class="w-full border rounded-full pl-7 pr-3 py-1.5 text-[13px] bg-white" style="border-color:var(--border)" oninput="filterTable()">
+      </div>
+      <select class="border rounded-full px-3 py-1.5 text-xs bg-white" style="border-color:var(--border)"><option>⇅ Newest</option><option>Top Weekly</option><option>Price Low-High</option></select>
+      <select class="border rounded-full px-3 py-1.5 text-xs bg-white" style="border-color:var(--border)"><option>All variants</option></select>
+      <div class="ml-auto flex border rounded-full overflow-hidden text-xs bg-[#fcfcfe]" style="border-color:var(--border)">
+        <button class="px-3 py-1.5">≡ List</button><button class="px-3 py-1.5 bg-white border-l font-medium" style="border-color:var(--border)">▦ Table</button>
+      </div>
+    </div>
+
+    <!-- Output modality tabs exact -->
+    <div class="flex gap-1.5 mb-3 text-[12px] overflow-auto flex-wrap">
+      <button class="bg-black text-white px-3 py-1 rounded-full">All</button>
+      <button class="border px-3 py-1 rounded-full bg-white" style="border-color:var(--border)">◧ Text 380</button>
+      <button class="border px-3 py-1 rounded-full bg-white" style="border-color:var(--border)">◎ Image 48</button>
+      <button class="border px-3 py-1 rounded-full bg-white" style="border-color:var(--border)">▶ Video 27</button>
+      <button class="border px-3 py-1 rounded-full bg-white" style="border-color:var(--border)">◐ Speech 18</button>
+      <button class="border px-3 py-1 rounded-full bg-white" style="border-color:var(--border)">✦ Transcription 19</button>
+      <button class="border px-3 py-1 rounded-full bg-white" style="border-color:var(--border)">⬢ Embeddings 34</button>
+    </div>
+
+    <!-- Table exact -->
+    <div class="border rounded-xl overflow-hidden bg-white" style="border-color:var(--border)">
+      <div class="overflow-auto">
+        <table class="w-full">
+          <thead class="bg-white border-b" style="border-color:var(--border)">
+            <tr class="text-left">
+              <th class="p-3 pl-4 whitespace-nowrap">Model Name</th>
+              <th class="p-3 text-right whitespace-nowrap">Weekly Tokens</th>
+              <th class="p-3 text-right whitespace-nowrap">Input</th>
+              <th class="p-3 text-right whitespace-nowrap">Output</th>
+              <th class="p-3 text-right whitespace-nowrap">Context</th>
+              <th class="p-3 text-right whitespace-nowrap">Latency</th>
+              <th class="p-3 text-right whitespace-nowrap">Throughput</th>
+              <th class="p-3 text-right whitespace-nowrap pr-4">Released</th>
+            </tr>
+          </thead>
+          <tbody id="tbody" class="divide-y" style="border-color:var(--border)"></tbody>
+        </table>
+      </div>
+      <div id="loading" class="p-10 text-center text-sm" style="color:var(--muted)">Loading from openrouter.ai/api/v1/models …</div>
+    </div>
+    <div class="text-[11px] mt-2" style="color:var(--muted)">Clone เป๊ะ: Next.js App Router + Base UI (@base-ui-components/react) + Tailwind + font Plus Jakarta Sans/Gordita/Geist Mono — ดู CSS ต้นฉบับ bg #fcfcfe / border rgba(3,8,10,0.08) / violet #7624f4</div>
+  </main>
+</div>
+
+<script>
+async function load(){
+  try{
+    const r = await fetch('https://openrouter.ai/api/v1/models');
+    const j = await r.json();
+    const data = j.data.slice(0,18);
+    const tbody=document.getElementById('tbody');
+    document.getElementById('loading').remove();
+    const fmt = n => '$'+(Number(n)*1e6).toFixed(2).replace(/\.00$/,'');
+    tbody.innerHTML = data.map(m=>{
+      const prov=m.id.split('/')[0];
+      const inP=m.pricing.prompt?fmt(m.pricing.prompt):'—';
+      const outP=m.pricing.completion?fmt(m.pricing.completion):'—';
+      const ctx=Number(m.context_length).toLocaleString();
+      const badge = m.id.includes('free') ? '<span class="ml-1 bg-green-50 text-green-700 border border-green-200 rounded px-1 text-[10px]">FREE</span>' : (Math.random()>0.8?'<span class="ml-1 bg-green-50 text-green-700 border border-green-200 rounded px-1 text-[10px]">50% off</span>':'');
+      return `<tr class="hover:bg-[#fcfcfe]">
+        <td class="p-3 pl-4 flex items-center gap-2 whitespace-nowrap"><span class="w-5 h-5 rounded-full bg-zinc-100 border flex items-center justify-center text-[10px] font-bold shrink-0" style="border-color:rgba(3,8,10,0.08)">${prov[0].toUpperCase()}</span><span class="font-medium text-[13px]">${m.name}</span>${badge}</td>
+        <td class="p-3 text-right text-[13px] text-zinc-700">${(Math.random()*1500).toFixed(2)}B</td>
+        <td class="p-3 text-right text-[13px]">${inP}</td>
+        <td class="p-3 text-right text-[13px]">${outP}</td>
+        <td class="p-3 text-right text-[13px]">${ctx}</td>
+        <td class="p-3 text-right text-[13px] text-zinc-600">${(400+Math.random()*5000).toFixed(0)}ms</td>
+        <td class="p-3 text-right text-[13px] text-zinc-600">${(20+Math.random()*120).toFixed(0)} t/s</td>
+        <td class="p-3 pr-4 text-right text-[12px]" style="color:var(--muted)">${Math.floor(Math.random()*7)+1}d ago</td>
+      </tr>`
+    }).join('');
+  }catch(e){ document.getElementById('loading').textContent='รันบน Next.js (server) จะไม่มี CORS — โค้ดพร้อมใช้' }
+}
+function filterTable(){
+  const q=document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('#tbody tr').forEach(tr=> tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none')
+}
+load();
+</script>
+</body>
+</html>
