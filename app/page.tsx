@@ -1,104 +1,170 @@
-// Exact clone: Base UI + Tailwind + custom tokens (bg #fcfcfe / border 0.08 / violet #7624f4)
-import { Tabs } from "@base-ui/react";
+"use client";
 
-async function getModels() {
-  const res = await fetch("https://openrouter.ai/api/v1/models", { next: { revalidate: 3600 } });
-  const j = await res.json();
-  return j.data.slice(0, 15) as any[];
-}
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
-export default async function Page() {
-  const models = await getModels();
+const navLinks = [
+  { label: "Components", href: "/docs/components/base/button" },
+  { label: "DESIGN.md", href: "/DESIGN.md" },
+  { label: "README.md", href: "/README.md" },
+  { label: "GitHub", href: "https://github.com/lxrj-ui/ui" },
+];
+
+const stats = [
+  { value: "300T+", label: "Monthly Tokens" },
+  { value: "10M+", label: "Global Users" },
+  { value: "80+", label: "Providers" },
+  { value: "500+", label: "Models" },
+];
+
+const statusBadges = [
+  { label: "Operational", variant: "positive" as const },
+  { label: "Degraded", variant: "warning" as const },
+  { label: "Down", variant: "negative" as const },
+  { label: "Beta", variant: "info" as const },
+];
+
+const chartData = [
+  { label: "Mon", v: 42, c: "var(--color-chart-1)" },
+  { label: "Tue", v: 68, c: "var(--color-chart-2)" },
+  { label: "Wed", v: 51, c: "var(--color-chart-3)" },
+  { label: "Thu", v: 84, c: "var(--color-chart-4)" },
+  { label: "Fri", v: 73, c: "var(--color-chart-5)" },
+];
+
+export default function Home() {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
   return (
-    <div>
-      {/* Navbar - Base UI NavigationMenu would go here, simplified */}
-      <nav className="sticky top-0 flex items-center justify-between px-4 py-2.5 bg-[#fcfcfe] border-b">
-        <div className="flex items-center gap-2 font-bold text-sm"><span className="w-5 h-5 rounded-full bg-violet text-white grid place-items-center text-[10px]">◈</span> LXRJ-UI <span className="font-normal text-zinc-400">Base UI + Tailwind</span></div>
-        <div className="text-xs text-zinc-500">Copy OpenRouter tokens</div>
+    <div className="min-h-screen transition-colors" style={{ fontFamily: "var(--font-sans)" }}>
+      <nav
+        className="sticky top-0 z-10 flex items-center justify-between px-6 h-14 backdrop-blur border-b"
+        style={{
+          backgroundColor: "color-mix(in oklab, var(--color-background) 80%, transparent)",
+          borderColor: "var(--color-border)",
+        }}
+      >
+        <Link href="/" className="flex items-center gap-2 hover:opacity-80">
+          <svg width={20} height={20} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2L22 8.5V15.5L12 22L2 15.5V8.5L12 2Z" fill="var(--color-grape)" />
+            <path d="M12 7L17 10V14L12 17L7 14V10L12 7Z" fill="var(--color-cloud)" />
+          </svg>
+          <span className="font-bold text-sm" style={{ color: "var(--color-foreground)" }}>LXRJ-UI</span>
+          <span className="hidden sm:inline font-normal text-xs ml-1" style={{ color: "var(--color-text-faint)" }}>
+            The Unified Interface
+          </span>
+        </Link>
+
+        <div className="hidden md:flex gap-5 text-[13px]" style={{ color: "var(--color-muted-foreground)" }}>
+          {navLinks.map((l) => (
+            <Link key={l.label} href={l.href} className="hover:opacity-80 transition-opacity">
+              {l.label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            className="inline-flex items-center justify-center h-8 w-8 rounded-md text-sm transition-colors hover:bg-[var(--color-card-hover)]"
+            style={{ color: "var(--color-foreground)" }}
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? "🌙" : "☀️"}
+          </button>
+          <Link href="/docs/components/base/button">
+            <Button size="sm">Get started</Button>
+          </Link>
+        </div>
       </nav>
 
-      <div className="flex max-w-[1600px] mx-auto">
-        <aside className="w-[240px] border-r p-3 hidden lg:block bg-[#fcfcfe] text-sm">
-          <div className="font-semibold text-xs mb-2">Input modalities</div>
-          {["Text","Image","File","Audio","Video"].map(k=>(
-            <label key={k} className="flex gap-2 py-1 text-[13px]"><input type="checkbox" className="w-3.5 h-3.5"/> {k}</label>
+      <div className="max-w-4xl mx-auto text-center pt-20 pb-10 px-6">
+        <div
+          className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[12px] font-medium mb-6"
+          style={{
+            borderColor: "var(--color-accent-border)",
+            color: "var(--color-accent-foreground)",
+            backgroundColor: "var(--color-accent-subtle)",
+          }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-volt)", boxShadow: "0 0 8px var(--color-volt)" }} />
+          v2 — Bauhaus design system
+        </div>
+
+        <h1
+          className="text-[56px] font-bold leading-[1.05] tracking-tight"
+          style={{ fontFamily: "var(--font-brand)", color: "var(--color-foreground)" }}
+        >
+          The Unified Interface
+          <br />
+          For Every Model
+        </h1>
+        <p className="mt-4 text-[15px]" style={{ color: "var(--color-muted-foreground)" }}>
+          Better <span className="underline">prices</span>, better{" "}
+          <span className="underline">uptime</span>, no subscriptions.
+        </p>
+
+        <div className="mt-7 flex justify-center gap-3">
+          <Link href="/docs/components/base/button">
+            <Button size="lg">Get API Key</Button>
+          </Link>
+          <Link href="/docs/components/base/button">
+            <Button size="lg" variant="outline">Discover Components</Button>
+          </Link>
+        </div>
+
+        <div className="mt-10 flex justify-center gap-8 text-xs" style={{ color: "var(--color-muted-foreground)" }}>
+          {stats.map((s) => (
+            <div key={s.label}>
+              <b className="text-[15px]" style={{ color: "var(--color-foreground)" }}>{s.value}</b> {s.label}
+            </div>
           ))}
-          <div className="mt-4 text-[11px] bg-violet-50 border border-violet-200 rounded-lg p-2">
-            Base UI = โครงกระดูก<br/>Tailwind + tokens = สี/ฟอนต์/ขอบ
-          </div>
-        </aside>
-
-        <main className="flex-1 p-5 bg-white">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="font-semibold text-[20px]" style={{fontFamily:"Plus Jakarta Sans"}}>Models</h1>
-            <div className="flex gap-2 text-xs">
-              <button className="border rounded-full px-3 py-1.5 bg-white">⊞ Compare</button>
-              <button className="bg-[#7624f4] text-white rounded-full px-3 py-1.5">Discover Models ✦</button>
-            </div>
-          </div>
-
-          {/* Search + Sort - exact 36px */}
-          <div className="flex flex-wrap gap-2 mb-3 items-center">
-            <div className="relative flex-1 max-w-[320px]">
-              <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs">⌕</span>
-              <input placeholder="Search models..." className="w-full border rounded-[6px] pl-7 pr-3 h-9 text-[13px] bg-white" style={{borderColor:"rgba(3,8,10,0.08)"}} />
-            </div>
-            <select className="border rounded-full px-3 h-9 text-xs bg-white" style={{borderColor:"rgba(3,8,10,0.08)"}}><option>⇅ Newest</option><option>Top Weekly</option></select>
-            <select className="border rounded-full px-3 h-9 text-xs bg-white" style={{borderColor:"rgba(3,8,10,0.08)"}}><option>All variants</option></select>
-            <div className="ml-auto flex border rounded-full overflow-hidden text-xs bg-[#fcfcfe]" style={{borderColor:"rgba(3,8,10,0.08)"}}>
-              <button className="px-3 py-1.5">≡ List</button><button className="px-3 py-1.5 bg-white border-l font-medium" style={{borderColor:"rgba(3,8,10,0.08)"}}>▦ Table</button>
-            </div>
-          </div>
-
-          {/* Tabs - Base UI exact */}
-          <Tabs.Root defaultValue="all" className="mb-3">
-            <Tabs.List className="flex gap-1.5 flex-wrap border-b pb-2" style={{borderColor:"rgba(3,8,10,0.08)"}}>
-              <Tabs.Tab value="all" className="px-3 py-1 rounded-full text-xs border-0 bg-black text-white data-[selected]:bg-black">All</Tabs.Tab>
-              <Tabs.Tab value="text" className="px-3 py-1 rounded-full text-xs border bg-white" style={{borderColor:"rgba(3,8,10,0.08)"}}>◧ Text 380</Tabs.Tab>
-              <Tabs.Tab value="image" className="px-3 py-1 rounded-full text-xs border bg-white" style={{borderColor:"rgba(3,8,10,0.08)"}}>◎ Image 48</Tabs.Tab>
-              <Tabs.Tab value="video" className="px-3 py-1 rounded-full text-xs border bg-white" style={{borderColor:"rgba(3,8,10,0.08)"}}>▶ Video 27</Tabs.Tab>
-              <Tabs.Tab value="speech" className="px-3 py-1 rounded-full text-xs border bg-white" style={{borderColor:"rgba(3,8,10,0.08)"}}>◐ Speech 18</Tabs.Tab>
-              <Tabs.Tab value="embed" className="px-3 py-1 rounded-full text-xs border bg-white" style={{borderColor:"rgba(3,8,10,0.08)"}}>⬢ Embeddings 34</Tabs.Tab>
-            </Tabs.List>
-          </Tabs.Root>
-
-          <div className="border rounded-xl overflow-auto bg-white" style={{borderColor:"rgba(3,8,10,0.08)"}}>
-            <table className="w-full">
-              <thead className="border-b bg-white" style={{borderColor:"rgba(3,8,10,0.08)"}}>
-                <tr className="text-left">
-                  <th className="p-[10px_16px] text-[14px] font-medium text-[rgba(3,8,10,0.69)]">Model Name</th>
-                  <th className="p-[10px_16px] text-right text-[14px] font-medium text-[rgba(3,8,10,0.69)]">Weekly Tokens</th>
-                  <th className="p-[10px_16px] text-right text-[14px] font-medium text-[rgba(3,8,10,0.69)]">Input</th>
-                  <th className="p-[10px_16px] text-right text-[14px] font-medium text-[rgba(3,8,10,0.69)]">Output</th>
-                  <th className="p-[10px_16px] text-right text-[14px] font-medium text-[rgba(3,8,10,0.69)]">Context</th>
-                  <th className="p-[10px_16px] text-right text-[14px] font-medium text-[rgba(3,8,10,0.69)]">Latency</th>
-                  <th className="p-[10px_16px] text-right text-[14px] font-medium text-[rgba(3,8,10,0.69)]">Throughput</th>
-                  <th className="p-[10px_16px] text-right text-[14px] font-medium text-[rgba(3,8,10,0.69)]">Released</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y" style={{borderColor:"rgba(3,8,10,0.08)"}}>
-                {models.map((m:any)=>(
-                  <tr key={m.id} className="hover:bg-[#fcfcfe] group">
-                    <td className="p-3 pl-4 flex items-center gap-2 whitespace-nowrap text-[13px] font-medium">
-                      <span className="w-5 h-5 rounded-full bg-zinc-100 border flex items-center justify-center text-[10px] font-bold shrink-0" style={{borderColor:"rgba(3,8,10,0.08)"}}>{m.id.split("/")[0][0].toUpperCase()}</span>
-                      {m.name}
-                      {m.id.includes("free") && <span className="bg-green-50 text-green-700 border border-green-200 rounded px-1 text-[10px]">FREE</span>}
-                    </td>
-                    <td className="p-3 text-right text-[13px] text-zinc-700">{(Math.random()*1500).toFixed(1)}B</td>
-                    <td className="p-3 text-right text-[13px]">${(Number(m.pricing.prompt)*1e6).toFixed(2).replace(".00","")}</td>
-                    <td className="p-3 text-right text-[13px]">${(Number(m.pricing.completion)*1e6).toFixed(2).replace(".00","")}</td>
-                    <td className="p-3 text-right text-[13px]">{Number(m.context_length).toLocaleString()}</td>
-                    <td className="p-3 text-right text-[13px] text-zinc-600">{(400+Math.random()*5000).toFixed(0)}ms</td>
-                    <td className="p-3 text-right text-[13px] text-zinc-600">{(20+Math.random()*120).toFixed(0)} t/s</td>
-                    <td className="p-3 pr-4 text-right text-[12px] text-[rgba(3,8,10,0.69)]">{Math.floor(Math.random()*7)+1}d ago</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-[11px] mt-2 text-[rgba(3,8,10,0.69)]">รัน: npm install && npm run dev — จะได้เหมือน openrouter.ai เป๊ะ</p>
-        </main>
+        </div>
       </div>
+
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-4 px-6 pb-12">
+        <div className="p-5 border" style={{ backgroundColor: "var(--color-card)", borderColor: "var(--color-border)", borderRadius: "8px" }}>
+          <div className="text-[11px] font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--color-text-faint)" }}>
+            Status
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {statusBadges.map((b) => (
+              <Badge key={b.label} variant={b.variant}>{b.label}</Badge>
+            ))}
+          </div>
+        </div>
+
+        <div className="p-5 border" style={{ backgroundColor: "var(--color-card)", borderColor: "var(--color-border)", borderRadius: "8px" }}>
+          <div className="text-[11px] font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--color-text-faint)" }}>
+            Tokens · 7d
+          </div>
+          <div className="flex items-end gap-2 h-24">
+            {chartData.map((d) => (
+              <div key={d.label} className="flex-1 flex flex-col items-center gap-1">
+                <div className="w-full rounded-sm" style={{ height: `${d.v}%`, background: d.c, minHeight: "8px" }} />
+                <span className="text-[10px]" style={{ color: "var(--color-text-faint)" }}>{d.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <footer
+        className="border-t py-6 px-6 text-[12px] flex items-center justify-between"
+        style={{ borderColor: "var(--color-border)", color: "var(--color-text-faint)" }}
+      >
+        <div>© LXRJ-UI — Bauhaus design system (see <Link href="/DESIGN.md" className="underline">DESIGN.md</Link>)</div>
+        <div className="flex gap-4">
+          <Link href="/DESIGN.md" className="hover:opacity-80">Design</Link>
+          <a href="https://github.com/lxrj-ui/ui" className="hover:opacity-80">GitHub</a>
+        </div>
+      </footer>
     </div>
   );
 }

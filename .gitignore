@@ -1,2 +1,11 @@
-.next
-node_modules
+node_modules/
+.next/
+out/
+build/
+dist/
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+bun.lock
+package-lock.json

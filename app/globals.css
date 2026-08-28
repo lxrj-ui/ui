@@ -1,12 +1,165 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --bg: #fcfcfe;
-  --fg: #03080a;
-  --muted: rgba(3,8,10,0.69);
-  --border: rgba(3,8,10,0.08);
-  --violet: #7624f4;
+/* ──────────────────────────────────────────────────────────
+ * LXRJ-UI Design System (OpenRouter Bauhaus)
+ * Source: DESIGN.md
+ * 6-color palette: Ink, Cloud, Grape, Volt, Coral, Royal
+ * Accent swap: Grape in light, Volt in dark.
+ * Everything else derived via opacity (05/08/14/20/30/70/a0/b0/e0).
+ * ────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Brand */
+  --color-ink: #03080a;
+  --color-cloud: #fcfcfe;
+  --color-grape: #7624f4;
+  --color-volt: #c8ff00;
+  --color-coral: #ff6849;
+  --color-royal: #035ade;
+
+  /* Semantic (light — normative) */
+  --color-background: #fcfcfe;
+  --color-foreground: #03080a;
+  --color-card: #ffffff;
+  --color-card-foreground: #03080a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #03080a;
+  --color-surface: #ffffff;
+  --color-doc-surface: #ffffff;
+  --color-card-hover: rgba(3, 8, 10, 0.02);
+  --color-selected-bg: rgba(3, 8, 10, 0.03);
+  --color-input-bg: #ffffff;
+
+  /* Accent (Grape, light) */
+  --color-primary: #7624f4;
+  --color-primary-foreground: #fcfcfe;
+  --color-secondary: rgba(118, 36, 244, 0.08);
+  --color-secondary-foreground: #7624f4;
+  --color-accent: rgba(118, 36, 244, 0.08);
+  --color-accent-foreground: #7624f4;
+  --color-accent-subtle: rgba(118, 36, 244, 0.03);
+  --color-accent-border: rgba(118, 36, 244, 0.13);
+  --color-accent-hover: rgba(118, 36, 244, 0.88);
+  --color-ring: #7624f4;
+
+  /* Text */
+  --color-muted: rgba(3, 8, 10, 0.02);
+  --color-muted-foreground: rgba(3, 8, 10, 0.69);
+  --color-text-faint: rgba(3, 8, 10, 0.44);
+  --color-text-prose-body: #03080a;
+
+  /* Borders & inputs (14) */
+  --color-border: rgba(3, 8, 10, 0.08);
+  --color-input: rgba(3, 8, 10, 0.08);
+
+  /* Status — display + text pairs (light) */
+  --color-positive: #00bf6f;
+  --color-positive-text: #007544;
+  --color-positive-bg: rgba(0, 191, 111, 0.08);
+  --color-negative: #ff2d55;
+  --color-negative-text: #bf0024;
+  --color-negative-bg: rgba(255, 45, 85, 0.08);
+  --color-warning: #e5a000;
+  --color-warning-text: #8a6000;
+  --color-warning-bg: rgba(229, 160, 0, 0.08);
+  --color-info: #035ade;
+  --color-info-text: #0352c9;
+  --color-info-bg: rgba(3, 90, 222, 0.08);
+  --color-promo: #035ade;
+  --color-promo-text: #0352c9;
+  --color-promo-bg: rgba(3, 90, 222, 0.08);
+  --color-destructive: #e11d48;
+  --color-destructive-foreground: #fcfcfe;
+
+  /* Chart palette (hex, same in both themes) */
+  --color-chart-1: #0088fe;
+  --color-chart-2: #00c49f;
+  --color-chart-3: #ffbb28;
+  --color-chart-4: #ff8042;
+  --color-chart-5: #ff6347;
+
+  /* Focus (neutral, NOT accent — DESIGN.md §Focus) */
+  --focus-border: color-mix(in oklab, var(--color-foreground) 30%, transparent);
+  --focus-shadow: 0 0 0 3px color-mix(in oklab, var(--color-foreground) 6%, transparent);
+  --error-border: var(--color-negative);
+  --error-shadow: 0 0 0 3px color-mix(in oklab, var(--color-negative) 10%, transparent);
+
+  /* Radius — Bauhaus 4/6/8/12/full */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-brand: "Gordita", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
-body { background: var(--bg); color: var(--fg); font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
+
+/* ── Dark mode (Grape → Volt swap) ── */
+[data-theme="dark"] {
+  --color-background: #03080a;
+  --color-foreground: #fcfcfe;
+  --color-card: rgba(252, 252, 254, 0.02);
+  --color-card-foreground: #fcfcfe;
+  --color-popover: #18181b;
+  --color-popover-foreground: #fcfcfe;
+  --color-surface: rgba(252, 252, 254, 0.01);
+  --color-doc-surface: rgba(252, 252, 254, 0.05);
+  --color-card-hover: rgba(252, 252, 254, 0.03);
+  --color-selected-bg: rgba(252, 252, 254, 0.04);
+  --color-input-bg: rgba(252, 252, 254, 0.05);
+
+  --color-primary: #c8ff00;
+  --color-primary-foreground: #03080a;
+  --color-secondary: rgba(200, 255, 0, 0.13);
+  --color-secondary-foreground: #c8ff00;
+  --color-accent: rgba(200, 255, 0, 0.13);
+  --color-accent-foreground: #c8ff00;
+  --color-accent-subtle: rgba(200, 255, 0, 0.05);
+  --color-accent-border: rgba(200, 255, 0, 0.20);
+  --color-accent-hover: rgba(200, 255, 0, 0.88);
+  --color-ring: #c8ff00;
+
+  --color-muted: rgba(252, 252, 254, 0.04);
+  --color-muted-foreground: rgba(252, 252, 254, 0.63);
+  --color-text-faint: rgba(252, 252, 254, 0.44);
+  --color-text-prose-body: #fcfcfe;
+
+  --color-border: rgba(252, 252, 254, 0.10);
+  --color-input: rgba(252, 252, 254, 0.10);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Selection — accent tint */
+::selection {
+  background: rgb(118 36 244 / 0.14);
+}
+[data-theme="dark"] ::selection {
+  background: rgb(200 255 0 / 0.14);
+  color: inherit;
+}
+
+/* Links — 40% opacity underline, full on hover */
+a:not([class]) {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  text-decoration-color: rgb(0 0 0 / 0.4);
+}
+a:not([class]):hover {
+  text-decoration-color: currentColor;
+}
+[data-theme="dark"] a:not([class]) {
+  text-decoration-color: rgb(255 255 255 / 0.4);
+}

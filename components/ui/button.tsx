@@ -1,38 +1,47 @@
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "radix-ui";
+
 import { cn } from "@/lib/utils";
 
-type Variant = "default" | "outline" | "ghost";
-type Size = "sm" | "md" | "lg";
+/**
+ * Button — DESIGN.md §Buttons
+ * - radius-md (6px), text-button (14px w500)
+ * - h-10 default · h-8 sm · h-11 lg · h-10 w-10 icon
+ * - focus: NEUTRAL (border foreground/30 + 3px glow), NOT accent
+ * - hovers: primary → accent-hover e0 · outline → muted bg + accent-foreground · ghost → accent-subtle 08
+ */
+const buttonVariants = cva(
+  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-[14px] font-medium transition-colors focus-visible:outline-none focus-visible:border-[var(--focus-border)] focus-visible:shadow-[var(--focus-shadow)] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  {
+    variants: {
+      variant: {
+        default: "bg-[var(--color-primary)] text-[var(--color-primary-foreground)] border border-transparent hover:bg-[var(--color-accent-hover)]",
+        outline: "bg-[var(--color-background)] text-[var(--color-muted-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-muted)] hover:text-[var(--color-accent-foreground)]",
+        ghost: "bg-transparent text-[var(--color-muted-foreground)] border border-transparent hover:bg-[var(--color-accent-subtle)] hover:text-[var(--color-foreground)]",
+        destructive: "bg-[var(--color-destructive)] text-[var(--color-destructive-foreground)] border border-transparent hover:opacity-90",
+        link: "bg-transparent text-[var(--color-foreground)] border border-transparent underline underline-offset-2 decoration-foreground/40 hover:decoration-foreground",
+      },
+      size: {
+        default: "h-10 px-4",
+        sm: "h-8 px-3",
+        lg: "h-11 px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: { variant: "default", size: "default" },
+  }
+);
 
-const variants: Record<Variant, string> = {
-  default: "bg-[#7624f4] text-[#fcfcfe] hover:bg-[#6a20db] border-transparent",
-  outline: "bg-white text-[#03080a] border hover:bg-[#fcfcfe]",
-  ghost: "bg-transparent text-[rgba(3,8,10,0.69)] hover:bg-[#fcfcfe] border-transparent",
-};
-
-const sizes: Record<Size, string> = {
-  sm: "h-8 px-3 text-xs",
-  md: "h-9 px-4 text-sm",
-  lg: "h-11 px-8 text-sm",
-};
-
-export function Button({
-  variant = "default",
-  size = "md",
-  className,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant; size?: Size }) {
-  return (
-    <button
-      className={cn(
-        "inline-flex items-center justify-center rounded-[6px] border font-medium transition-colors",
-        "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#7624f4]",
-        "disabled:opacity-50 disabled:pointer-events-none",
-        variants[variant],
-        sizes[size],
-        className
-      )}
-      style={{ fontFamily: "Plus Jakarta Sans, system-ui, sans-serif", borderColor: variant === "outline" ? "rgba(3,8,10,0.08)" : undefined }}
-      {...props}
-    />
-  );
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
 }
+
+export function Button({ className, variant, size, asChild = false, ...props }: ButtonProps) {
+  const Comp = asChild ? Slot.Root : "button";
+  return <Comp className={cn(buttonVariants({ variant, size }), className)} {...props} />;
+}
+
+export { buttonVariants };
