@@ -71,7 +71,6 @@ export default function ButtonPage() {
         style={{
           backgroundColor: "var(--color-card)",
           borderColor: "var(--color-border)",
-          borderRadius: "8px",
           fontFamily: "var(--font-mono)",
         }}
       >
