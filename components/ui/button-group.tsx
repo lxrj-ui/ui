@@ -29,14 +29,14 @@ function ButtonGroup({ variant = "outline", children, className, ...props }: But
           className: cn(
             (child as React.ReactElement<{ className?: string }>).props.className,
             // Shared base
-            "inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors h-10 px-4",
+            "relative inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors h-10 px-4 focus-visible:z-10 focus-visible:outline-none focus-visible:border-[var(--focus-border)] focus-visible:shadow-[var(--focus-shadow)]",
             // Variant styles
             variant === "outline" && "bg-[var(--color-background)] text-[var(--color-muted-foreground)] border hover:bg-[var(--color-muted)] hover:text-[var(--color-accent-foreground)]",
             variant === "default" && "bg-[var(--color-primary)] text-[var(--color-primary-foreground)] border border-transparent hover:bg-[var(--color-accent-hover)]",
             variant === "ghost" && "bg-transparent text-[var(--color-muted-foreground)] border border-transparent hover:bg-[var(--color-accent-subtle)]",
-            // Radius: only outer corners rounded
-            isFirst && !isLast && "rounded-l-md",
-            isLast && !isFirst && "rounded-r-md",
+            // Radius: only outer corners rounded (override base rounded-md)
+            isFirst && !isLast && "rounded-none rounded-l-md",
+            isLast && !isFirst && "rounded-none rounded-r-md",
             !isFirst && !isLast && "rounded-none",
             isFirst && isLast && "rounded-md",
             // Inner borders collapsed
