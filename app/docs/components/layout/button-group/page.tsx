@@ -29,7 +29,7 @@ export default function ButtonGroupPage() {
       <div className="mb-10">
         <div className="inline-flex">
           <ButtonGroupLabel>Actions</ButtonGroupLabel>
-          <ButtonGroup>
+          <ButtonGroup hasLabel>
             <Button>Edit</Button>
             <Button>Duplicate</Button>
             <Button>Delete</Button>

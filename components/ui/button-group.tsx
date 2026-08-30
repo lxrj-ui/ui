@@ -12,12 +12,13 @@ import { cn } from "../../lib/utils";
 
 interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: "outline" | "default" | "ghost";
+  hasLabel?: boolean;
 }
 
-function ButtonGroup({ variant = "outline", children, className, ...props }: ButtonGroupProps) {
+function ButtonGroup({ variant = "outline", hasLabel = false, children, className, ...props }: ButtonGroupProps) {
   return (
     <div
-      className={cn("inline-flex", className)}
+      className={cn("inline-flex", hasLabel && "-ml-px", className)}
       role="group"
       {...props}
     >
@@ -35,10 +36,13 @@ function ButtonGroup({ variant = "outline", children, className, ...props }: But
             variant === "default" && "bg-[var(--color-primary)] text-[var(--color-primary-foreground)] border border-transparent hover:bg-[var(--color-accent-hover)]",
             variant === "ghost" && "bg-transparent text-[var(--color-muted-foreground)] border border-transparent hover:bg-[var(--color-accent-subtle)]",
             // Radius: only outer corners rounded (override base rounded-md)
-            isFirst && !isLast && "rounded-none rounded-l-md",
-            isLast && !isFirst && "rounded-none rounded-r-md",
+            // When hasLabel, first button attaches to label so no left rounding
+            hasLabel && isFirst && !isLast && "rounded-none",
+            hasLabel && isFirst && isLast && "rounded-none rounded-r-md",
+            !hasLabel && isFirst && !isLast && "rounded-none rounded-l-md",
+            !hasLabel && isLast && !isFirst && "rounded-none rounded-r-md",
             !isFirst && !isLast && "rounded-none",
-            isFirst && isLast && "rounded-md",
+            !hasLabel && isFirst && isLast && "rounded-md",
             // Inner borders collapsed
             !isFirst && "-ml-px"
           ),
