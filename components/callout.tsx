@@ -23,7 +23,7 @@ export function Callout({ variant = "note", children }: { variant?: Variant; chi
       }}
     >
       <Icon size={16} className="shrink-0 mt-0.5" style={{ color: `var(--color-${c.token}-text)` }} />
-      <div className="flex-1 text-[14px] leading-6" style={{ color: "var(--color-foreground)" }}>
+      <div className="flex-1 text-sm leading-6" style={{ color: "var(--color-foreground)" }}>
         <div className="font-semibold mb-1" style={{ color: `var(--color-${c.token}-text)` }}>
           {c.label}
         </div>

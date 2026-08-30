@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 /**
  * Badge — DESIGN.md §Badge variants
@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
  * - status variants use -text label + display at /12 bg + /14 border
  */
 const badgeVariants = cva(
-  "inline-flex w-fit shrink-0 items-center justify-center gap-1 rounded-full border px-2 py-0.5 text-[12px] font-medium whitespace-nowrap transition-colors",
+  "inline-flex w-fit shrink-0 items-center justify-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-colors",
   {
     variants: {
       variant: {
@@ -17,11 +17,11 @@ const badgeVariants = cva(
         secondary: "border-transparent bg-[var(--color-secondary)] text-[var(--color-secondary-foreground)]",
         outline: "border-[var(--color-border)] bg-transparent text-[var(--color-foreground)]",
         destructive: "border-transparent bg-[var(--color-destructive)] text-[var(--color-destructive-foreground)]",
-        positive: "border-[var(--color-positive)]/14 bg-[var(--color-positive)]/12 text-[var(--color-positive-text)]",
-        negative: "border-[var(--color-negative)]/14 bg-[var(--color-negative)]/12 text-[var(--color-negative-text)]",
-        warning: "border-[var(--color-warning)]/14 bg-[var(--color-warning)]/12 text-[var(--color-warning-text)]",
-        info: "border-[var(--color-info)]/14 bg-[var(--color-info)]/12 text-[var(--color-info-text)]",
-        promo: "border-[var(--color-promo)]/14 bg-[var(--color-promo)]/12 text-[var(--color-promo-text)]",
+        positive: "border-[color-mix(in_srgb,var(--color-positive)_14%,transparent)] bg-[color-mix(in_srgb,var(--color-positive)_12%,transparent)] text-[var(--color-positive-text)]",
+        negative: "border-[color-mix(in_srgb,var(--color-negative)_14%,transparent)] bg-[color-mix(in_srgb,var(--color-negative)_12%,transparent)] text-[var(--color-negative-text)]",
+        warning: "border-[color-mix(in_srgb,var(--color-warning)_14%,transparent)] bg-[color-mix(in_srgb,var(--color-warning)_12%,transparent)] text-[var(--color-warning-text)]",
+        info: "border-[color-mix(in_srgb,var(--color-info)_14%,transparent)] bg-[color-mix(in_srgb,var(--color-info)_12%,transparent)] text-[var(--color-info-text)]",
+        promo: "border-[color-mix(in_srgb,var(--color-promo)_14%,transparent)] bg-[color-mix(in_srgb,var(--color-promo)_12%,transparent)] text-[var(--color-promo-text)]",
       },
     },
     defaultVariants: { variant: "default" },

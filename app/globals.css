@@ -1,14 +1,62 @@
 @import "tailwindcss";
 
-/* ──────────────────────────────────────────────────────────
- * LXRJ-UI Design System (OpenRouter Bauhaus)
- * Source: DESIGN.md
- * 6-color palette: Ink, Cloud, Grape, Volt, Coral, Royal
- * Accent swap: Grape in light, Volt in dark.
- * Everything else derived via opacity (05/08/14/20/30/70/a0/b0/e0).
- * ────────────────────────────────────────────────────────── */
+/* Map Tailwind's `dark:` variant to the data-theme attribute so the
+   gallery's dark: classes activate in dark mode (OpenRouter is dark). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
+  /* Typography — match OpenRouter design system scale */
+  /* Tailwind utilities: text-xs=body(14), text-sm=body(14), text-base=heading/section(16),
+     text-lg=heading(16), text-xl=title(20), text-2xl=display(24), text-4xl=hero(36)
+     Semantic tokens (text-overline=12, text-body=14) are separate from Tailwind scale */
+  --text-xs: 14px;
+  --text-xs--line-height: 1.625;
+  --text-sm: 14px;
+  --text-sm--line-height: 1.35;
+  --text-base: 16px;
+  --text-base--line-height: 1.35;
+  --text-lg: 16px;
+  --text-lg--line-height: 1.35;
+  --text-xl: 20px;
+  --text-xl--line-height: 1.2;
+  --text-2xl: 24px;
+  --text-2xl--line-height: 1.2;
+  --text-3xl: 30px;
+  --text-3xl--line-height: 1.2;
+  --text-4xl: 36px;
+  --text-4xl--line-height: 1.2;
+
+  /* Design tokens (use via text-[length:var(--text-*)]) */
+  --text-overline: 12px;
+  --text-body: 14px;
+  --text-heading: 16px;
+  --text-section: 16px;
+  --text-prose: 16px;
+  --text-button: 14px;
+  --text-title: 20px;
+  --text-display: 24px;
+  --text-hero: 36px;
+
+  /* Font weight: DESIGN.md body register is 450, not 400 */
+  --font-weight-normal: 450;
+  --weight-hero: 700;
+  --weight-display: 700;
+  --weight-title: 600;
+  --weight-section: 500;
+  --weight-heading: 600;
+  --weight-body: 450;
+  --weight-button: 500;
+  --weight-overline: 500;
+
+  /* Badge */
+  --badge-font-size: 12px;
+
+  /* Leading */
+  --leading-body: 1.625;
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-prose: 1.7;
+
   /* Brand */
   --color-ink: #03080a;
   --color-cloud: #fcfcfe;
@@ -49,8 +97,8 @@
   --color-text-prose-body: #03080a;
 
   /* Borders & inputs (14) */
-  --color-border: rgba(3, 8, 10, 0.08);
-  --color-input: rgba(3, 8, 10, 0.08);
+  --color-border: rgba(3, 8, 10, 0.14);
+  --color-input: rgba(3, 8, 10, 0.14);
 
   /* Status — display + text pairs (light) */
   --color-positive: #00bf6f;
@@ -78,9 +126,9 @@
   --color-chart-4: #ff8042;
   --color-chart-5: #ff6347;
 
-  /* Focus (neutral, NOT accent — DESIGN.md §Focus) */
-  --focus-border: color-mix(in oklab, var(--color-foreground) 30%, transparent);
-  --focus-shadow: 0 0 0 3px color-mix(in oklab, var(--color-foreground) 6%, transparent);
+  /* Focus (neutral, NOT accent — DESIGN.md §Focus) — exact OR hex */
+  --focus-border: #03080a4d;
+  --focus-shadow: 0 0 0 3px #03080a0f;
   --error-border: var(--color-negative);
   --error-shadow: 0 0 0 3px color-mix(in oklab, var(--color-negative) 10%, transparent);
 
@@ -109,7 +157,7 @@
   --color-doc-surface: rgba(252, 252, 254, 0.05);
   --color-card-hover: rgba(252, 252, 254, 0.03);
   --color-selected-bg: rgba(252, 252, 254, 0.04);
-  --color-input-bg: rgba(252, 252, 254, 0.05);
+  --color-input-bg: rgba(252, 252, 254, 0.039);
 
   --color-primary: #c8ff00;
   --color-primary-foreground: #03080a;
@@ -127,8 +175,11 @@
   --color-text-faint: rgba(252, 252, 254, 0.44);
   --color-text-prose-body: #fcfcfe;
 
-  --color-border: rgba(252, 252, 254, 0.10);
-  --color-input: rgba(252, 252, 254, 0.10);
+  --color-border: rgba(252, 252, 254, 0.14);
+  --color-input: rgba(252, 252, 254, 0.14);
+
+  --focus-border: #fcfcfe4d;
+  --focus-shadow: 0 0 0 3px #fcfcfe0f;
 }
 
 * {
@@ -139,8 +190,64 @@ body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  font-weight: var(--font-weight-normal);
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
 }
+
+/* ── Element-level heading styles (match OpenRouter — in @layer base so
+      Tailwind text-* utilities can still override them) ── */
+@layer base {
+  :root h1 {
+    font-family: var(--font-brand);
+    font-size: var(--text-title);
+    font-weight: var(--weight-title);
+    line-height: var(--leading-tight);
+  }
+  :root h2 {
+    font-size: var(--text-title);
+    font-weight: var(--weight-title);
+    line-height: var(--leading-tight);
+  }
+  :root h3 {
+    font-size: var(--text-section);
+    font-weight: var(--weight-section);
+    line-height: var(--leading-snug);
+  }
+  :root h4 {
+    font-size: var(--text-heading);
+    font-weight: var(--weight-heading);
+    line-height: var(--leading-snug);
+  }
+}
+
+/* ── Extra-small text utilities (OpenRouter has .text-2xs/.text-3xs) ── */
+.text-2xs,
+.text-3xs {
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+/* Float animations for feature card icon grid (match OpenRouter) */
+@keyframes float0 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float3 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float4 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float5 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float6 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float7 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float8 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float9 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float10 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float11 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float12 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float13 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float14 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float15 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes float16 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 
 /* Selection — accent tint */
 ::selection {
@@ -162,4 +269,39 @@ a:not([class]):hover {
 }
 [data-theme="dark"] a:not([class]) {
   text-decoration-color: rgb(255 255 255 / 0.4);
+}
+
+/* ── Enforce design-system tokens on native controls & SVGs ──
+   Base UI / browser defaults would otherwise paint browser-blue accents,
+   black SVG fills, and black input text — none of which are system colors. */
+:where(input, textarea, select) {
+  color: var(--color-foreground);
+  accent-color: var(--color-primary);
+}
+:where(input, textarea, select):focus-visible {
+  outline: none;
+}
+svg:not([fill]) {
+  fill: currentColor;
+}
+
+/* ── OR-Table (OpenRouter-style table patterns) ── */
+.or-table--density-compact td,
+.or-table--density-compact th {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.or-table--density-comfortable td,
+.or-table--density-comfortable th {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.or-table__row--grid {
+  display: grid;
+  align-items: center;
+}
+.or-table__cell--grid {
+  display: flex;
+  align-items: center;
+  min-width: 0;
 }

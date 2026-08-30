@@ -286,13 +286,14 @@ The muted split is deliberate: the same alpha lands differently per theme — In
 
 ### Dark-mode swap
 
-In dark mode the accent flips to **Volt** and the neutral surfaces invert. Every `primary` / `secondary` / `accent` / `ring` token resolves to Volt-based values, and surfaces derive from Cloud-on-Ink instead of Ink-on-Cloud:
+In dark mode the accent flips to **Volt** and the neutral surfaces invert. Every accent token — `primary`, `secondary`, `accent`, `ring` and their `-foreground` / `-subtle` / `-border` variants — resolves to Volt-based values; the one exception is `primary-foreground`, which flips to **Ink** (`#03080A`) because Volt needs dark text for AA. Surfaces derive from Cloud-on-Ink instead of Ink-on-Cloud:
 
 | Token | Light | Dark |
 |-------|-------|------|
 | `background` | `#FCFCFE` | `#03080A` |
 | `foreground` | `#03080A` | `#FCFCFE` |
 | `card` | `#FFFFFF` | `#FCFCFE05` |
+| `card-foreground` | `#03080A` | `#FCFCFE` |
 | `popover` (opaque overlay) | `#FFFFFF` | `Cloud 5% composited onto Ink` (opaque, ≠ background) |
 | `surface` | `#FFFFFF` | `#FCFCFE03` |
 | `doc-surface` | `#FFFFFF` | `#FCFCFE0c` |
@@ -300,7 +301,15 @@ In dark mode the accent flips to **Volt** and the neutral surfaces invert. Every
 | `selected-bg` | `#03080A08` | `#FCFCFE0a` |
 | `input-bg` | `#FFFFFF` | `#FCFCFE0a` |
 | `primary` (accent) | `#7624F4` Grape | `#C8FF00` Volt |
+| `primary-foreground` | `#FCFCFE` Cloud | `#03080A` Ink |
+| `secondary` | `#7624F414` | `#C8FF0014` |
+| `secondary-foreground` | `#7624F4` | `#C8FF00` |
+| `accent` | `#7624F414` | `#C8FF0014` |
+| `accent-foreground` | `#7624F4` | `#C8FF00` |
+| `accent-subtle` | `#7624F408` | `#C8FF0008` |
+| `accent-border` | `#7624F420` | `#C8FF0020` |
 | `accent-hover` | `#7624F4e0` | `#C8FF00e0` |
+| `ring` | `#7624F4` | `#C8FF00` |
 | `muted-foreground` | `#03080Ab0` | `#FCFCFEa0` |
 | `border` / `input` | `#03080A14` | `#FCFCFE14` |
 | `positive` / `positive-text` | `#00BF6F` / `#007544` | `#00BF6F` (same) / `#34DFAA` |

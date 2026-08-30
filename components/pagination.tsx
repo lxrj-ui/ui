@@ -16,12 +16,12 @@ export function Pagination({
       {prev ? (
         <Link
           href={prev.href}
-          className="flex items-center gap-2 text-[13px] transition-colors hover:text-[var(--color-foreground)]"
+          className="flex items-center gap-2 text-sm transition-colors hover:text-[var(--color-foreground)]"
           style={{ color: "var(--color-muted-foreground)" }}
         >
           <ArrowLeft size={16} />
           <div>
-            <div className="text-[10px] uppercase tracking-wider" style={{ color: "var(--color-text-faint)" }}>
+            <div className="text-xs uppercase tracking-wider" style={{ color: "var(--color-text-faint)" }}>
               Previous
             </div>
             <div className="font-medium" style={{ color: "var(--color-foreground)" }}>
@@ -35,11 +35,11 @@ export function Pagination({
       {next ? (
         <Link
           href={next.href}
-          className="flex items-center gap-2 text-[13px] text-right ml-auto transition-colors hover:text-[var(--color-foreground)]"
+          className="flex items-center gap-2 text-sm text-right ml-auto transition-colors hover:text-[var(--color-foreground)]"
           style={{ color: "var(--color-muted-foreground)" }}
         >
           <div>
-            <div className="text-[10px] uppercase tracking-wider" style={{ color: "var(--color-text-faint)" }}>
+            <div className="text-xs uppercase tracking-wider" style={{ color: "var(--color-text-faint)" }}>
               Next
             </div>
             <div className="font-medium" style={{ color: "var(--color-foreground)" }}>

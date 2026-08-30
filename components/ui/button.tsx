@@ -1,8 +1,8 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Slot } from "radix-ui";
+import { Button as BaseButton } from "@base-ui/react/button";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 /**
  * Button — DESIGN.md §Buttons
@@ -10,9 +10,10 @@ import { cn } from "@/lib/utils";
  * - h-10 default · h-8 sm · h-11 lg · h-10 w-10 icon
  * - focus: NEUTRAL (border foreground/30 + 3px glow), NOT accent
  * - hovers: primary → accent-hover e0 · outline → muted bg + accent-foreground · ghost → accent-subtle 08
+ * - Built on Base UI (matches OpenRouter's stack).
  */
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-[14px] font-medium transition-colors focus-visible:outline-none focus-visible:border-[var(--focus-border)] focus-visible:shadow-[var(--focus-shadow)] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:border-[var(--focus-border)] focus-visible:shadow-[var(--focus-shadow)] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
@@ -34,14 +35,25 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends Omit<React.ComponentProps<typeof BaseButton>, "color">,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 
-export function Button({ className, variant, size, asChild = false, ...props }: ButtonProps) {
-  const Comp = asChild ? Slot.Root : "button";
-  return <Comp className={cn(buttonVariants({ variant, size }), className)} {...props} />;
+export function Button({ className, variant, size, asChild = false, children, ...props }: ButtonProps) {
+  const cls = buttonVariants({ variant, size });
+  if (asChild && React.isValidElement(children)) {
+    const child = children as React.ReactElement<{ className?: string }>;
+    return React.cloneElement(child, {
+      ...(props as Record<string, unknown>),
+      className: cn(child.props.className, cls, className),
+    } as Record<string, unknown>);
+  }
+  return (
+    <BaseButton className={cn(cls, className)} {...props}>
+      {children}
+    </BaseButton>
+  );
 }
 
 export { buttonVariants };

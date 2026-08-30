@@ -12,7 +12,7 @@ export function CopyPageButton({ text }: { text: string }) {
         setCopied(true);
         setTimeout(() => setCopied(false), 1500);
       }}
-      className="inline-flex items-center gap-1.5 h-8 px-3 rounded-md text-[12px] border transition-colors hover:bg-[var(--color-card-hover)]"
+      className="inline-flex items-center gap-1.5 h-8 px-3 rounded-md text-xs border transition-colors hover:bg-[var(--color-card-hover)]"
       style={{ borderColor: "var(--color-border)", color: "var(--color-muted-foreground)" }}
     >
       {copied ? <Check size={14} /> : <Copy size={14} />}

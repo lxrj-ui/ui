@@ -23,13 +23,13 @@ export default function ButtonPage() {
       >
         Button
       </h1>
-      <p className="text-[15px] mb-8" style={{ color: "var(--color-muted-foreground)" }}>
+      <p className="text-sm mb-8" style={{ color: "var(--color-muted-foreground)" }}>
         Trigger actions. Five variants, four sizes, and full className pass-through. Follows
         DESIGN.md §Buttons — radius-md (6px), 14px w500, neutral focus ring.
       </p>
 
       <h2
-        className="text-2xl font-semibold mb-3"
+        className="text-base font-semibold mb-3"
         style={{ fontFamily: "var(--font-brand)", color: "var(--color-foreground)" }}
       >
         Variants
@@ -43,7 +43,7 @@ export default function ButtonPage() {
       </div>
 
       <h2
-        className="text-2xl font-semibold mb-3"
+        className="text-base font-semibold mb-3"
         style={{ fontFamily: "var(--font-brand)", color: "var(--color-foreground)" }}
       >
         Sizes
@@ -56,18 +56,18 @@ export default function ButtonPage() {
       </div>
 
       <Callout variant="note">
-        Buttons use <code className="px-1.5 py-0.5 rounded text-[12px] font-mono" style={{ backgroundColor: "var(--color-card-hover)" }}>asChild</code> with Radix Slot, so you can compose them with{" "}
-        <code className="px-1.5 py-0.5 rounded text-[12px] font-mono" style={{ backgroundColor: "var(--color-card-hover)" }}>Link</code> from next/link without losing button styles.
+        Buttons use <code className="px-1.5 py-0.5 rounded text-xs font-mono" style={{ backgroundColor: "var(--color-card-hover)" }}>asChild</code> with Base UI render, so you can compose them with{" "}
+        <code className="px-1.5 py-0.5 rounded text-xs font-mono" style={{ backgroundColor: "var(--color-card-hover)" }}>Link</code> from next/link without losing button styles.
       </Callout>
 
       <h2
-        className="text-2xl font-semibold mb-3"
+        className="text-base font-semibold mb-3"
         style={{ fontFamily: "var(--font-brand)", color: "var(--color-foreground)" }}
       >
         Code
       </h2>
       <pre
-        className="rounded-md border p-4 text-[12px] overflow-x-auto font-mono leading-6"
+        className="rounded-md border p-4 text-xs overflow-x-auto font-mono leading-6"
         style={{
           backgroundColor: "var(--color-card)",
           borderColor: "var(--color-border)",
