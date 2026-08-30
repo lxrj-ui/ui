@@ -62,7 +62,7 @@ function DropdownMenuItem({
       data-variant={variant}
       className={cn(
         "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors",
-        "focus:bg-[var(--color-card-hover)] focus:text-[var(--color-foreground)]",
+        "focus:bg-[var(--color-card-hover)] focus:text-[var(--color-accent-foreground)]",
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         "data-[variant=destructive]:text-[var(--color-negative-text)] data-[variant=destructive]:focus:bg-[var(--color-negative-bg)]",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
@@ -83,7 +83,7 @@ function DropdownMenuCheckboxItem({
       data-slot="dropdown-menu-checkbox-item"
       className={cn(
         "relative flex cursor-default select-none items-center gap-2 rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors",
-        "focus:bg-[var(--color-card-hover)] focus:text-[var(--color-foreground)]",
+        "focus:bg-[var(--color-card-hover)] focus:text-[var(--color-accent-foreground)]",
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         className
       )}

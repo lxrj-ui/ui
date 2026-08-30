@@ -48,7 +48,7 @@ function NavigationMenuTrigger({ className, children, ...props }: React.Componen
         "group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-2 py-1.5 text-sm font-medium transition-colors",
         "hover:bg-[var(--color-card-hover)] hover:text-[var(--color-accent-foreground)]",
         "focus-visible:outline-none focus-visible:border-[var(--focus-border)] focus-visible:shadow-[var(--focus-shadow)]",
-        "data-[open]:bg-[var(--color-accent-subtle)]",
+        "data-[open]:bg-[var(--color-accent)] data-[open]:text-[var(--color-accent-foreground)]",
         "disabled:pointer-events-none disabled:opacity-50",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0",
         className

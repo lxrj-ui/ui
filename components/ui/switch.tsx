@@ -27,19 +27,25 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
         className={cn(
           "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:border-[var(--focus-border)] focus-visible:shadow-[var(--focus-shadow)] disabled:cursor-not-allowed disabled:opacity-50",
           checked
-            ? "bg-primary"
+            ? "bg-[var(--color-primary)]"
             : "bg-foreground/30 hover:bg-foreground/40",
           className
         )}
         ref={ref}
         onClick={() => onCheckedChange?.(!checked)}
+        onKeyDown={(e) => {
+          if (e.key === " " || e.key === "Enter") {
+            e.preventDefault();
+            onCheckedChange?.(!checked);
+          }
+          (props as React.KeyboardEventHandler<HTMLButtonElement>)?.onKeyDown?.(e as React.KeyboardEvent<HTMLButtonElement>);
+        }}
         {...props}
       >
         <span
           className={cn(
             "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-[translate,width] duration-200 ease-in-out",
-            checked ? "translate-x-5" : "translate-x-0",
-            className
+            checked ? "translate-x-5" : "translate-x-0"
           )}
         />
       </button>

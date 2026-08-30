@@ -75,7 +75,7 @@ function Calendar({ selected, onSelect, className }: CalendarProps) {
               onClick={() => onSelect?.(date)}
               className={cn(
                 "h-8 w-8 flex items-center justify-center rounded-md text-sm transition-colors",
-                isSelected && "bg-[var(--color-primary)] text-[var(--color-primary-foreground)]",
+                isSelected && "bg-[var(--color-accent)] text-[var(--color-accent-foreground)]",
                 !isSelected && isToday && "ring-1 ring-[color-mix(in_srgb,var(--color-foreground)_30%,transparent)]",
                 !isSelected && "hover:bg-[var(--color-card-hover)]"
               )}

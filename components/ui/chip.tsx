@@ -23,7 +23,7 @@ function Chip({ removable, onRemove, selected, children, className, ...props }: 
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-sm transition-colors",
+        "group inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-sm transition-colors",
         selected
           ? "bg-[var(--color-selected-bg)] text-[var(--color-foreground)] border border-[var(--color-border)]"
           : "bg-[var(--color-muted)] text-[var(--color-muted-foreground)] border border-transparent hover:bg-[var(--color-card-hover)]",

@@ -5,7 +5,7 @@ import { cn } from "../../lib/utils";
 function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("rounded-lg border bg-[var(--color-card)] shadow-sm", className)}
+      className={cn("rounded-lg border bg-[var(--color-card)]", className)}
       style={{ borderColor: "var(--color-border)" }}
       {...props}
     />

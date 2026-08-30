@@ -58,7 +58,7 @@ function SheetContent({
       <Dialog.Popup
         data-slot="sheet-content"
         className={cn(
-          "fixed z-50 flex flex-col gap-4 bg-[var(--color-background)] text-[var(--color-foreground)] shadow-lg transition ease-in-out duration-200 data-ending-style:translate-x-full data-starting-style:translate-x-full",
+          "fixed z-50 flex flex-col gap-4 bg-[var(--color-popover)] text-[var(--color-popover-foreground)] shadow-lg transition ease-in-out duration-200 data-ending-style:translate-x-full data-starting-style:translate-x-full",
           side === "left" &&
             "inset-y-0 left-0 h-full w-3/4 border-r border-[var(--color-border)] data-ending-style:-translate-x-full data-starting-style:-translate-x-full sm:max-w-sm",
           side === "right" &&
