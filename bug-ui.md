@@ -30,6 +30,9 @@
 2. **tsconfig paths ห้ามใช้ใน components/** — `@/lib/utils` ทำให้ consume ผ่าน vendor/link ไม่ได้ ใช้ relative เสมอ
 3. **ลงชื่อ dep ที่ component ใช้** — ตอนนี้ใช้ `tw-animate-css` classes (`animate-in`, `data-[state=open]:animate-out`, `accordion-up/down`) แต่ package.json ไม่มี — ผู้ใช้ต้องติดตั้งเอง ควรประกาศ (devDep) หรือเอกสารไว้
 4. **Animations ต้องการ `tw-animate-css`** ฝั่งผู้ใช้ — ถ้าเปลี่ยนมาใช้ keyframes ในตัว จะสะดวกกว่า
+5. **ห้ามใส่ `<script>` ใน Server Component** — Next.js App Router จะ warn "Encountered a script tag while rendering React component" → ใช้ Client Component + `useEffect` แทน (เช่น theme init)
+6. **ปุ่มไม่มีเงา** — ตาม OpenRouter design ปุ่มไม่มี shadow (shadow ใช้แค่ popup/modal เช่น `shadow-[0.25rem_0.25rem_0]`)
+7. **ButtonGroup rounding** — last button ในกลุ่ม hasLabel ต้องมี condition `hasLabel && !isFirst && isLast && "rounded-none rounded-r-md"` ไม่งั้นได้ `rounded-md` จาก default
 
 ---
 

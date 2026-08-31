@@ -141,12 +141,14 @@ function TableCaption({ className, ...props }: React.HTMLAttributes<HTMLTableCap
 
 function TableEmpty({ className, colSpan, ...props }: React.TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td
-      colSpan={colSpan}
-      className={cn("px-4 py-8 text-center italic", className)}
-      style={{ color: "var(--color-text-faint)" }}
-      {...props}
-    />
+    <tr>
+      <td
+        colSpan={colSpan}
+        className={cn("px-4 py-8 text-center italic", className)}
+        style={{ color: "var(--color-text-faint)" }}
+        {...props}
+      />
+    </tr>
   );
 }
 

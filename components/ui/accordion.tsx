@@ -84,7 +84,7 @@ function AccordionContent({ id, children, className, ...props }: React.HTMLAttri
 
   return (
     <div
-      className={cn("pb-3 text-sm animate-in slide-in-from-top-1", className)}
+      className={cn("pb-3 text-sm", className)}
       style={{ color: "var(--color-muted-foreground)" }}
       {...props}
     >

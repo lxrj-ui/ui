@@ -65,7 +65,7 @@ function NavigationMenuContent({ className, ...props }: React.ComponentProps<typ
     <BaseNavigationMenu.Content
       data-slot="navigation-menu-content"
       className={cn(
-        "absolute right-0 top-full mt-1 z-[100] origin-[var(--transform-origin)] rounded-md border bg-[var(--color-popover)] text-[var(--color-popover-foreground)] p-2 shadow-md outline-hidden transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0",
+        "absolute right-0 top-full mt-1 z-[80] origin-[var(--transform-origin)] rounded-md border bg-[var(--color-popover)] text-[var(--color-popover-foreground)] p-2 shadow-md outline-hidden transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0",
         className
       )}
       {...props}

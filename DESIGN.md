@@ -812,6 +812,15 @@ The underline is always a **low-opacity tint of the link's own color** (`decorat
 
 Track: `muted` bg, `border`, `rounded-md`, `p-0.5`. All segments `font-medium` (Nav weight rule). Inactive segment: `muted-foreground`, hover → `accent-foreground` (the standard hover promotion — same as links, tabs, and hover rows). Active segment: `background` bg, `accent-foreground` text, `shadow-sm`, `rounded-sm`. Use for theme switchers, view toggles, compact tab-like selections. **Segmented tabs** (a tablist that switches content *panels*) wear the identical skin — same track, segment, and hover values; the only difference is semantics (tabs drive panels, a segmented control picks a value).
 
+### Tabs
+
+Underline tab strip — the generic counterpart to Modality tabs. No track background, no panel frame.
+
+- **Tab:** `shrink-0 border-b-2 px-4 py-2 text-xs font-medium` (compact) or `body` at `font-medium` (Nav weight) for standard density. Rest: `border-transparent text-muted-foreground`. Hover: `text-accent-foreground` (no fill). **Selected:** `2px underline in accent` (`border-primary` — Grape light / Volt dark), label in `foreground` — no fill on the selected tab. Focus: standard `focus-visible` outline.
+- **Tablist:** `flex gap-0 overflow-x-auto scrollbar-hide` — scrollable on overflow, scrollbar hidden (`-ms-overflow-style:none` / `scrollbar-width:none` / `::-webkit-scrollbar{display:none}`). No `border-b` baseline — only the active tab's `border-b-2` draws. Do not add `-mb-px` overlap or a wrapper `border-b`.
+- **Panel:** `grid` container with no `border`, no `rounded`, no `bg-card` frame — content sits directly below the tablist. Panel itself is `bg-card p-4` only if it needs a surface; the outer wrapper carries no frame.
+- **Behaviour:** follows Modality tabs for entity-filter variants (icon + label, identity color on indicator/icon/wash, label stays neutral). Generic navigation tabs keep the accent.
+
 ### Button group
 
 A row (or column) of buttons fused into one control: shared variant (usually `outline`), inner corners squared and inner borders collapsed so they read as segments (`first`/`last` keep the outer radius). Use for related actions or a multi-state toggle that's heavier than a segmented control. An optional leading `muted` label cap (`rounded-md border bg-muted px-4 text-button muted-foreground`) prefixes the group.

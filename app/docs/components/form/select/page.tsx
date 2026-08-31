@@ -26,9 +26,7 @@ export default function SelectPage() {
         <Label>Framework</Label>
         <Select value={framework} onValueChange={setFramework}>
           <SelectTrigger>
-            <SelectValue placeholder="Select a framework">
-              {framework === "next" ? "Next.js" : framework === "remix" ? "Remix" : framework === "astro" ? "Astro" : "Select a framework"}
-            </SelectValue>
+            <SelectValue placeholder="Select a framework" />
           </SelectTrigger>
           <SelectContent>
             <SelectOption value="next">Next.js</SelectOption>
