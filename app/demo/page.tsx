@@ -108,7 +108,7 @@ export default function ModelsPage() {
         </nav>
 
         {/* Main */}
-        <section className="flex-1 min-w-0 px-4 sm:px-6">
+        <section className="flex-1 min-w-0 px-4 sm:px-6 pb-24">
           <div className="sticky top-14 z-20 bg-[var(--color-background)] pt-3 pb-2">
             <div className="flex items-center justify-between gap-2">
               <h1 className="text-2xl font-bold">Models</h1>
@@ -167,10 +167,9 @@ export default function ModelsPage() {
           </div>
 
           {/* Table */}
-          <div className="mt-4 rounded-lg border overflow-hidden" style={{ borderColor: "var(--color-border)" }}>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="border-b" style={{ borderColor: "var(--color-border)", background: "var(--color-card)" }}>
+          <div className="mt-4 rounded-lg border" style={{ borderColor: "var(--color-border)" }}>
+            <table className="w-full text-sm table-fixed border-separate border-spacing-0">
+              <thead className="sticky top-[206px] z-10" style={{ backgroundColor: "var(--color-card)", boxShadow: "inset 0 -1px 0 var(--color-border)" }}>
                   <tr className="text-left" style={{ color: "var(--color-muted-foreground)" }}>
                     <th className="px-4 py-2 font-medium min-w-[280px] text-xs">Model Name</th>
                     <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Weekly Tokens</th>
@@ -206,7 +205,6 @@ export default function ModelsPage() {
                 </tbody>
               </table>
             </div>
-          </div>
         </section>
       </div>
     </div>

@@ -19,7 +19,7 @@ export default function DialogPage() {
       <h2 className="text-base font-semibold mb-3">Default</h2>
       <div className="mb-10">
         <Dialog>
-          <DialogTrigger>
+          <DialogTrigger asChild>
             <Button>Open Dialog</Button>
           </DialogTrigger>
           <DialogContent>
@@ -31,8 +31,8 @@ export default function DialogPage() {
               This is a dialog content area. You can put any content here.
             </p>
             <DialogFooter>
-              <DialogClose><Button variant="outline">Cancel</Button></DialogClose>
-              <DialogClose><Button>Save changes</Button></DialogClose>
+              <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
+              <DialogClose asChild><Button>Save changes</Button></DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -41,7 +41,7 @@ export default function DialogPage() {
       <h2 className="text-base font-semibold mb-3">Destructive</h2>
       <div className="mb-10">
         <Dialog>
-          <DialogTrigger>
+          <DialogTrigger asChild>
             <Button variant="destructive">Delete Account</Button>
           </DialogTrigger>
           <DialogContent>
@@ -50,8 +50,8 @@ export default function DialogPage() {
               <DialogDescription>This action cannot be undone. This will permanently delete your account and remove your data from our servers.</DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <DialogClose><Button variant="outline">Cancel</Button></DialogClose>
-              <DialogClose><Button variant="destructive">Delete account</Button></DialogClose>
+              <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
+              <DialogClose asChild><Button variant="destructive">Delete account</Button></DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>

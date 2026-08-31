@@ -59,6 +59,8 @@ const sidebarGroups = [
       { label: "Toggle", href: "/docs/components/toggle" },
       { label: "Toggle Group", href: "/docs/components/toggle-group" },
       { label: "Toolbar", href: "/docs/components/toolbar" },
+      { label: "Topbar", href: "/docs/components/navigation/topbar", badge: "new", badgeVariant: "outline" as const },
+      { label: "Tablist", href: "/docs/components/navigation/tablist", badge: "new", badgeVariant: "outline" as const },
       { label: "Tooltip", href: "/docs/components/tooltip" },
     ],
   },

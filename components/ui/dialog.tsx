@@ -38,10 +38,21 @@ function useDialog() {
   return React.useContext(DialogContext);
 }
 
-function DialogTrigger({ children, asChild, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }) {
+function DialogTrigger({ children, asChild, onClick, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }) {
   const { onOpenChange } = useDialog();
+  // When asChild is true, clone the child element and inject the onClick
+  // so we don't nest a <button> inside another <button>
+  if (asChild && React.isValidElement(children)) {
+    return React.cloneElement(children, {
+      ...props,
+      onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+        onClick?.(e);
+        onOpenChange(true);
+      },
+    } as React.ButtonHTMLAttributes<HTMLButtonElement>);
+  }
   return (
-    <button onClick={() => onOpenChange(true)} {...props}>
+    <button onClick={(e) => { onClick?.(e); onOpenChange(true); }} {...props}>
       {children}
     </button>
   );
@@ -52,7 +63,8 @@ function DialogOverlay({ className, ...props }: React.HTMLAttributes<HTMLDivElem
   if (!open) return null;
   return (
     <div
-      className={cn("fixed inset-0 z-50 bg-black/80 animate-in fade-in-0", className)}
+      className={cn("fixed inset-0 z-50 animate-in fade-in-0", className)}
+      style={{ backgroundColor: "var(--color-popover)" }}
       {...props}
     />
   );
@@ -76,7 +88,7 @@ function DialogContent({
             className
           )}
           style={{
-            backgroundColor: "var(--color-card)",
+            backgroundColor: "var(--color-popover)",
             borderColor: "var(--color-border)",
           }}
           {...props}
@@ -125,10 +137,19 @@ function DialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
   return <div className={cn("flex justify-end gap-3 mt-6", className)} {...props} />;
 }
 
-function DialogClose({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+function DialogClose({ children, asChild, onClick, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }) {
   const { onOpenChange } = useDialog();
+  if (asChild && React.isValidElement(children)) {
+    return React.cloneElement(children, {
+      ...props,
+      onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+        onClick?.(e);
+        onOpenChange(false);
+      },
+    } as React.ButtonHTMLAttributes<HTMLButtonElement>);
+  }
   return (
-    <button onClick={() => onOpenChange(false)} {...props}>
+    <button onClick={(e) => { onClick?.(e); onOpenChange(false); }} {...props}>
       {children}
     </button>
   );

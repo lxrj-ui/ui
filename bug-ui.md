@@ -41,7 +41,7 @@
 | # | รายการ | รายละเอียด |
 |---|---|---|
 | 1 | **Select: `disabled`** | `Select disabled` + Trigger `disabled/aria-disabled` (BCIG ใช้ pointer-events-none แทนชั่วคราว) |
-| 2 | **NavigationMenu: hover intent + data-[open]** | ยืนยัน attr `data-[open]` ให้ตรงทั้งระบบ + ตัวอย่าง account dropdown (content ชิดขวาใต้ trigger) |
+| 2 | **NavigationMenu: hover intent + data-[open]** | ✅ เสร็จ 2026-08-31 — attr จริงคือ `data-popup-open` (Trigger/Icon) และ `data-open/data-closed` (Content/Popup) แก้ใน `navigation-menu.tsx` แล้ว + เพิ่มตัวอย่าง account dropdown ที่ `components/ui/topbar.tsx` (`AccountMenu` — hover intent ผ่าน Root `delay`/`closeDelay`, content ชิดขวาใต้ trigger ผ่าน Positioner `align="end"`) **⚠️ Content ต้องมีโครง `Portal > Positioner > Popup > Viewport` ครบ ไม่งั้นไม่ mount** (Base UI return null ถ้าไม่มี Viewport) |
 | 3 | **Tooltip** | ยังไม่มี — ผู้ใช้เริ่มถามหา |
 | 4 | **Breadcrumb** | ยังไม่มี |
 | 5 | ** Gordita font** | ยังไม่มี woff2 ใน repo (ตกลงใช้ Jakarta fallback ไปก่อน ✓) |
@@ -69,3 +69,18 @@ BCIG/scripts/sync-ui.ps1   (robocopy /MIR)
 - ใช้จริง 26 components จาก 69 จุด import
 - ที่ใช้หนัก: button, badge, card, table, select, dialog, dropdown-menu, input, separator
 - หน้าที่ผ่านการใช้: users, roles, org, database, system, notifications, profile, preferences, api-keys
+
+---
+
+## ?? Tablist — คำขอจาก BCIG (2026-08-31)
+
+- **ผู้ขอ**: BCIG (apps/web) — หน้า Models (/workspaces/default/models)
+- **Use case**: แถวแท็บสรุปหมวดโมเดลพร้อมตัวเลขนับ — filter models by output modality (All / Text 395 / Image 48 / Video 27 / Speech 18 / Transcription 19 / Embeddings 34 / Rerank 7 / Audio 4)
+- **Reference ที่ BCIG ใช้งานจริง**: cig/apps/web/components/models/modality-tablist.tsx (โครง markup ลอก openrouter.ai/models)
+- **Implemented**: components/ui/tablist.tsx (Tablist + TablistItem + TablistDemo) + docs page /docs/components/navigation/tablist
+- **Spec**:
+  - container ole=tablist + lex overflow-x-auto scrollbar-hide -mb-px
+  - tab: order-b-2 px-4 py-2 text-xs font-medium, active = order-primary text-primary + ria-selected
+  - icon lucide size-4 (optional) + label + count 	abular-nums
+  - hover tint ต่อหมวด (token --color-modality-* — ยังไม่มีใน globals, ไม่มีก็ปลอดภัย)
+- **Follow-up**: เพิ่ม tokens --color-modality-{text,image,video,tts,transcription,embeddings,rerank,audio} ใน globals.css เมื่อยืนยัน palette

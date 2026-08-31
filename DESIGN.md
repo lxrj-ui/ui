@@ -845,6 +845,31 @@ Background: status color at `14` (the `-bg` tokens). Border: status color at `30
 
 A calendar is a **selectable grid** — day cells follow the standing hover and selection conventions, not custom styling. Rest hover on a day is neutral `card-hover` (hover is never the selected treatment); a **selected day** takes the standard selected tint — `accent` (`14`) with `accent-foreground` text. A **range** fills its interior days with `accent-subtle` (`08`) and keeps the two endpoints on the full `accent` tint so they read as the anchors. **Today is wayfinding, not selection**: mark it with a `ring-1 ring-border` on the cell — never the accent tint, which would read as selected. Weekday headers are `overline` (12px/500, `muted-foreground`); day numbers are `body` with `tabular-nums`; outside-month and disabled days drop to `text-faint`. Keyboard focus uses the standard neutral focus tokens (`--focus-border`/`--focus-shadow`), same as every control.
 
+### Carousel
+
+A horizontally scrollable strip of items with optional prev/next buttons and dot pagination. The skin is **quiet** — the strip is the point, not the chrome around it.
+
+**Anatomy:**
+1. **Viewport** — the visible window, `overflow-hidden` with `rounded-lg`. Width drives how many items show; use `basis-1/N` on items (`basis-1/2`, `basis-1/3`, `basis-1/4`) for fixed N-up layouts, or `min-w-0 flex-1` for a single rolling item.
+2. **Track** — `flex` container holding the items. The track is *translated* (`-translate-x-[N%]`), not scrolled — the viewport is `overflow-hidden` and the track handles the offset, so drag-to-scroll and gesture handlers work without a scrollbar.
+3. **Item** — the slide. Use `shrink-0` so the track can translate cleanly. Don't put a border on items unless every item in the set warrants it — see **Don't** below.
+4. **Prev/Next buttons** — `size-8` circular `ghost` (or `outline` on light surfaces) buttons overlaid on the viewport edges (`absolute left-2` / `right-2 top-1/2 -translate-y-1/2`). Icon: `icon-sm` chevron in `foreground`. **Disabled when at the start/end of the strip** (no looping by default).
+5. **Dot pagination** — row of `size-2` circles below the viewport. Rest: `bg-muted`. Active: `bg-foreground`. Total: visible iff item count > visible count.
+
+**Behavior:**
+- Drag/swipe to scroll; the track follows the pointer via `translate` for smooth gestures.
+- Keyboard: Left/Right arrows move between items, Home/End jump to first/last, Tab moves focus to next focusable element (don't trap Tab inside the carousel).
+- Optional autoplay (`autoplay` + `interval` props) pauses on hover/focus/visibilitychange — never autoplay videos or content with sound.
+- `loop` prop enables wrap-around; default is no-loop (prev/next disable at edges) — only enable for marketing hero carousels.
+
+**Tokens used:** `--color-muted`, `--color-foreground`, `--color-card`, `--color-border`, `--color-accent-foreground`.
+
+**Don't:**
+- Don't border individual items. Either frame the viewport (`rounded-lg border`) or frame nothing — bordering *items* inside a strip makes the strip look like a list of cards instead of a continuous flow.
+- Don't autoplay without a clear pause affordance; the pause button + hover-pause is the floor, not the ceiling.
+- Don't put a shadow on items; the viewport is the surface.
+- Don't use accent for active dots — `foreground` is enough; accent is reserved for interaction and singular emphasis.
+
 ### Composition recipes
 
 These aren't new primitives — they're the canonical way to assemble the ones above. Defined here so the recipe isn't re-guessed each time:
@@ -856,9 +881,30 @@ These aren't new primitives — they're the canonical way to assemble the ones a
 - **Code block** — `font-mono` on `doc-surface` (or `card`) inside a `rounded-lg border`, with an optional header strip (`h-9`, `overline` filename + copy button) and a `body`/`overline` body; syntax hues from the `chart-*`/status palette. Inline code and masked secrets follow Tables → *Code & secrets*.
 - **Hover row** — a list row that is the hover convention made reusable: `rounded-md`, `px-4 py-2.5`, `body` (14px) `font-medium` (the Nav weight rule — rest and active alike); rest `muted-foreground`; **hover (rest→hover) → neutral `card-hover` bg + `accent-foreground` text** (the text promotion is the interactivity cue — the wash stays quiet); **active (the current nav location / current value) → accent-tint `accent` (`14`) bg + `accent-foreground`**. This is the single primitive behind sidebar nav items, **dropdown / menu rows (incl. the profile & org-switcher menu)**, and select options — they are the *same* row at the *same* `body` size, not a larger variant. Two rulings that are routinely gotten wrong: **(1) hover is neutral, active is accent** — painting `accent` (`14`) bg on plain hover wrongly applies the active-state treatment to hover; **(2) a menu row is `body` (14px)**, matching the sidebar — don't bump it above `body` just because it's in a dropdown. The accent-tint active treatment is *navigation* language; rows the user **selects** (multi-select lists, pickable options) follow **Selection states** — neutral `selected-bg` + an explicit control — instead.
 
-### Logo
+- **Anatomy chip** — the numbered callout (①②③…) used to label a part in a screenshot/diagram. Each chip is a small `size-5` (or `size-6`) **circle** with a centered digit, in `bg-primary text-primary-foreground` so it pops over both light and dark images. A short absolute-positioned `top`/`bottom`/`left`/`right` (in `0.5` increments — `top-2`/`bottom-0`/`left-4` etc.) places it *over* the visual at the part it labels. A corresponding legend (e.g. "**① Topbar** — container, sticky top-0") sits below or beside the visual, never overlapping it. Use for: topbar, navbar, toolbar, sidebar — anywhere a real product chrome has more than three or four named parts and prose would make readers hunt. Don't use it for: simple controls (Button, Input — the label alone is enough), or primitives where prose can describe the parts inline (Card, Alert).
 
-Glyph: `fill-primary` (accent — Grape light / Volt dark). Wordmark: `fill-foreground` (neutral). Four marks: Glyph, Wordmark, Horizontal, Stacked.
+### Topbar
+
+App header bar — sticky top-0 with `z-50` over content. Navigation bar at the top of the app window showing brand and primary navigation links.
+
+**Anatomy:**
+1. **Topbar** (container) — `h-14` `px-4 sm:px-6`, sticky top-0, border-b, `relative z-50`. Background `bg-card` (or transparent over content with `border-b` for separation).
+2. **TopbarBrand** — logo + brand name (`rounded-md px-1.5 py-1 text-sm font-semibold`). Hover/active: `card-hover` bg.
+3. **TopbarLink** — nav link (`text-sm font-medium`). Rest: `text-muted-foreground`. Hover: `text-accent-foreground` (text promotion only — no fill). Active (`data-active` or current route): `bg-[var(--color-card-hover)] text-[var(--color-accent-foreground)]` — same accent-tint treatment as the Hover row primitive.
+4. **AccountMenu (trigger)** — avatar button with name + chevron, `data-popup-open` rotates the chevron 180°. Content is right-aligned under trigger via `align="end"` Positioner with `sideOffset={8}`.
+
+**Behavior:**
+- Hover intent on triggers (NavigationMenu `delay={100}` / `closeDelay={150}`).
+- Account menu closes when clicking outside, pressing Escape, or selecting an item.
+- Trigger is `aria-haspopup="menu"`, content uses `role="menu"`, items `role="menuitem"`.
+- Keyboard: ArrowDown/Up to navigate, Home/End to first/last, Enter/Space to select, Escape to close.
+
+**Tokens used:** `--color-card`, `--color-card-hover`, `--color-foreground`, `--color-muted-foreground`, `--color-accent-foreground`, `--color-border`.
+
+**Don't:**
+- Don't put a shadow on the topbar — it conflicts with `border-b` separation.
+- Don't add a fill bg — `bg-card` (or transparent with border) is the only topbar surface.
+- Don't bump link size above `text-sm`; the topbar is dense, not prominent.
 
 ### Portal theming
 

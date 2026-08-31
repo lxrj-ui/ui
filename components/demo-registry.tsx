@@ -27,6 +27,7 @@ import {
   NavigationMenuDemo,
   ScrollAreaDemo,
 } from "./base-ui-gallery";
+import { TopbarDemo } from "./ui/topbar";
 
 export interface DemoEntry {
   title: string;
@@ -63,5 +64,6 @@ export const demoRegistry: Record<string, DemoEntry> = {
   "toolbar": { title: "Toolbar", category: "Navigation", description: "Grouped actions with roving focus.", Demo: ToolbarDemo },
   "menubar": { title: "Menubar", category: "Navigation", description: "Application menu bar.", Demo: MenubarDemo },
   "navigation-menu": { title: "Navigation Menu", category: "Navigation", description: "Site navigation with flyout panels.", Demo: NavigationMenuDemo },
+  "topbar": { title: "Topbar", category: "Navigation", description: "App top bar with links and a right-aligned account menu.", Demo: TopbarDemo },
   "scroll-area": { title: "Scroll Area", category: "Data Display", description: "Custom scrollable region with a styled scrollbar.", Demo: ScrollAreaDemo },
 };
