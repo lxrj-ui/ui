@@ -139,9 +139,10 @@
   --radius-xl: 12px;
   --radius-full: 9999px;
 
-  /* Typography */
-  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-brand: "Plus Jakarta Sans", system-ui, sans-serif;
+  /* Typography — Noto Sans Thai ต่อท้าย Jakarta เสมอ ไม่งั้นตัวไทยตกไปใช้
+     ฟอนต์ระบบที่ไม่มี weight ตรง เบราว์เซอร์ทำ faux-bold สังเคราะห์ = ตัวหนาฟุ้ง */
+  --font-sans: "Plus Jakarta Sans", "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
+  --font-brand: "Plus Jakarta Sans", "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
 
