@@ -159,38 +159,38 @@ export default function ModelsPage() {
 
           {/* Table */}
           <div className="mt-4 rounded-lg border" style={{ borderColor: "var(--color-border)" }}>
-            <table className="w-full text-sm table-auto border-separate border-spacing-0">
+            <table className="w-full text-[15px] table-auto border-separate border-spacing-0">
               <thead className="sticky top-[206px] z-10" style={{ backgroundColor: "var(--color-card)", boxShadow: "inset 0 -1px 0 var(--color-border)" }}>
                   <tr className="text-left" style={{ color: "var(--color-muted-foreground)" }}>
                     <th className="px-4 py-2 font-medium text-xs whitespace-nowrap">Model Name</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Weekly Tokens</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Input</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Output</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Context</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Latency</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Throughput</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Released</th>
+                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Weekly Tokens</th>
+                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Input</th>
+                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Output</th>
+                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Context</th>
+                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Latency</th>
+                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Throughput</th>
+                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Released</th>
                     <th className="px-2 py-2"><Settings size={14} style={{ color: "var(--color-text-faint)" }} /></th>
                   </tr>
                 </thead>
                 <tbody>
                   {filtered.map((m) => (
                     <tr key={m.id} className="border-b hover:bg-[var(--color-card-hover)]" style={{ borderColor: "var(--color-border)" }}>
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-2">
-                          <Avatar size="sm" fallback={m.provider[0]} />
-                          <Link href={`/models/${m.id}`} className="text-sm font-medium hover:underline whitespace-nowrap" style={{ color: "var(--color-foreground)" }}>{m.name}</Link>
+                      <td className="px-4 py-4">
+                        <div className="flex items-center gap-2.5">
+                          <Avatar size="lg" fallback={m.provider[0]} />
+                          <Link href={`/models/${m.id}`} className="text-[15px] font-medium hover:underline whitespace-nowrap" style={{ color: "var(--color-foreground)" }}>{m.name}</Link>
                           {m.badge && <Badge variant={m.badge === "50% off" ? "positive" : "outline"} className="text-xs px-1 py-0">{m.badge}</Badge>}
                         </div>
                       </td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.tokens}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.input}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.output || "—"}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.context}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.latency}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.throughput}</td>
-                      <td className="px-3 py-3 text-right tabular-nums" style={{ color: "var(--color-muted-foreground)" }}>{m.date}</td>
-                      <td className="px-2 py-3" />
+                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.tokens}</td>
+                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.input}</td>
+                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.output || "—"}</td>
+                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.context}</td>
+                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.latency}</td>
+                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.throughput}</td>
+                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums" style={{ color: "var(--color-muted-foreground)" }}>{m.date}</td>
+<td className="px-2 py-4" />
                     </tr>
                   ))}
                 </tbody>
