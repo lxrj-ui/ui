@@ -319,6 +319,11 @@ svg:not([fill]) {
   width: 100%;
   caption-side: bottom;
   font-size: var(--text-body);
+  font-weight: 400;
+}
+/* ตัวใหญ่แบบ /models (หัว 12px ไม่โดนเพราะ header-cell ล็อกไว้เอง) */
+.or-models-table--lg {
+  font-size: 15px;
 }
 .or-table--density-compact td,
 .or-table--density-compact th {

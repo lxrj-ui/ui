@@ -1,4 +1,5 @@
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableCaption, TableEmpty } from "@/components/ui/table";
+import { OrModelsTable, type OrModelsColumn, type OrModelsRow } from "@/components/ui/or-models-table";
 import { Badge } from "@/components/ui/badge";
 import { CopyPageButton } from "@/components/copy-page-button";
 import { Pagination } from "@/components/pagination";
@@ -26,6 +27,23 @@ const invoices = [
   { invoice: "INV004", status: "Paid", method: "Credit Card", amount: "$450.00" },
 ];
 
+/** ข้อมูลตัวอย่างชุดเดียวกับที่ใช้ทั้ง Anatomy + Main */
+const demoColumns: OrModelsColumn[] = [
+  { label: "Model Name", width: "280px", align: "left" },
+  { label: "Weekly Tokens", width: "140px", align: "right", sortable: true },
+  { label: "Input", width: "110px", align: "right", sortable: true },
+  { label: "Output", width: "110px", align: "right" },
+  { label: "Context", width: "130px", align: "right" },
+  { label: "Released", width: "100px", align: "right", sortable: true, sorted: true },
+];
+
+const demoRows: OrModelsRow[] = [
+  { key: "hy4", cells: [<span key="n" className="truncate">Tencent: Hy4 preview</span>, "3.49T", "$0.834", "$2.501", "1,048,576", "3d ago"] },
+  { key: "wan", cells: [<span key="n" className="truncate">Alibaba: Wan 3.0 Prime</span>, "—", "from $0.068", "—", "—", "3d ago"] },
+  { key: "qwen", cells: [<span key="n" className="truncate">Qwen: Qwen3.8 Flash</span>, "85.5B", "$0.15", "$0.47", "1,000,000", "4d ago"] },
+  { key: "spark", cells: [<span key="n" className="truncate">Meta: Muse Spark 1.2</span>, "264B", "$0.10", "$0.20", "1,048,576", "1w ago"] },
+];
+
 export default function TablePage() {
   return (
     <div>
@@ -40,47 +58,7 @@ export default function TablePage() {
       <div className="relative mb-6">
         <div className="overflow-auto rounded-lg border bg-card" style={{ borderColor: "var(--color-border)" }}>
           <div className="relative w-full min-w-[900px]">
-            <div className="or-table-page-scroll">
-              <div className="or-table-page-scroll__header">
-                <table className="or-table or-table--density-regular table-fixed w-full min-w-[900px]" data-table-has-sticky-header="true">
-                  <colgroup><col style={{ width: "280px" }} /><col style={{ width: "140px" }} /><col style={{ width: "110px" }} /><col style={{ width: "110px" }} /><col style={{ width: "130px" }} /><col style={{ width: "100px" }} /><col style={{ width: "50px" }} /></colgroup>
-                  <thead className="or-table__header or-table__header--sticky">
-                    <tr className="or-table__row border-b" style={{ borderColor: "var(--color-border)" }}>
-                      <th className="or-table__header-cell text-left">Model Name</th>
-                      <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Weekly Tokens</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon or-table__sort-icon--muted"><path d="m21 16-4 4-4-4M17 20V4m-14 4 4-4 4 4M7 4v16" /></svg></button></th>
-                      <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Input</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon or-table__sort-icon--muted"><path d="m21 16-4 4-4-4M17 20V4m-14 4 4-4 4 4M7 4v16" /></svg></button></th>
-                      <th className="or-table__header-cell text-right tabular-nums">Output</th>
-                      <th className="or-table__header-cell text-right tabular-nums">Context</th>
-                      <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Released</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon"><path d="M12 5v14m7-7-7 7-7-7" /></svg></button></th>
-                      <th className="or-table__header-cell or-table__settings-head w-[50px]"><OrTableSettings /></th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
-              <div className="or-table-wrapper or-table-wrapper--page-scroll overflow-x-auto">
-                <table className="or-table table-fixed w-full min-w-[900px]">
-                  <colgroup><col style={{ width: "280px" }} /><col style={{ width: "140px" }} /><col style={{ width: "110px" }} /><col style={{ width: "110px" }} /><col style={{ width: "130px" }} /><col style={{ width: "100px" }} /><col style={{ width: "50px" }} /></colgroup>
-                  <tbody className="or-table__body">
-                    {[
-                      { name: "Tencent: Hy4 preview", tokens: "3.49T", input: "$0.834", output: "$2.501", ctx: "1,048,576", ago: "3d ago" },
-                      { name: "Alibaba: Wan 3.0 Prime", tokens: "—", input: "from $0.068", output: "—", ctx: "—", ago: "3d ago" },
-                      { name: "Qwen: Qwen3.8 Flash", tokens: "85.5B", input: "$0.15", output: "$0.47", ctx: "1,000,000", ago: "4d ago" },
-                      { name: "Meta: Muse Spark 1.2", tokens: "264B", input: "$0.10", output: "$0.20", ctx: "1,048,576", ago: "1w ago" },
-                    ].map((r) => (
-                      <tr key={r.name} className="border-b last:border-0 hover:bg-[var(--color-card-hover)] transition-colors" style={{ borderColor: "var(--color-border)" }}>
-                        <td className="px-4 py-3 text-sm"><span className="truncate">{r.name}</span></td>
-                        <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.tokens}</td>
-                        <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.input}</td>
-                        <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.output}</td>
-                        <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.ctx}</td>
-                        <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.ago}</td>
-                        <td className="px-4 py-3"></td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <OrModelsTable columns={demoColumns} rows={demoRows} settings={<OrTableSettings />} density="regular" minWidth="900px" />
           </div>
         </div>
         <AnatomyChip n={1} className="top-2 left-2" />
@@ -99,47 +77,7 @@ export default function TablePage() {
       <p className="text-sm mb-3" style={{ color: "var(--color-muted-foreground)" }}>ตารางหลักทั้งระบบ — sticky header, horizontal page-scroll, sortable columns, tabular-nums ขวา, grid rows ตรง https://openrouter.ai/models</p>
       <div className="mb-10 overflow-auto rounded-lg border bg-card" style={{ borderColor: "var(--color-border)" }}>
         <div className="relative w-full min-w-[900px]">
-          <div className="or-table-page-scroll">
-            <div className="or-table-page-scroll__header">
-              <table className="or-table or-table--density-regular table-fixed w-full min-w-[900px]" data-table-has-sticky-header="true">
-                <colgroup><col style={{ width: "280px" }} /><col style={{ width: "140px" }} /><col style={{ width: "110px" }} /><col style={{ width: "110px" }} /><col style={{ width: "130px" }} /><col style={{ width: "100px" }} /><col style={{ width: "50px" }} /></colgroup>
-                <thead className="or-table__header or-table__header--sticky">
-                  <tr className="or-table__row border-b" style={{ borderColor: "var(--color-border)" }}>
-                    <th className="or-table__header-cell text-left">Model Name</th>
-                    <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Weekly Tokens</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon or-table__sort-icon--muted"><path d="m21 16-4 4-4-4M17 20V4m-14 4 4-4 4 4M7 4v16" /></svg></button></th>
-                    <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Input</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon or-table__sort-icon--muted"><path d="m21 16-4 4-4-4M17 20V4m-14 4 4-4 4 4M7 4v16" /></svg></button></th>
-                    <th className="or-table__header-cell text-right tabular-nums">Output</th>
-                    <th className="or-table__header-cell text-right tabular-nums">Context</th>
-                    <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Released</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon"><path d="M12 5v14m7-7-7 7-7-7" /></svg></button></th>
-                    <th className="or-table__header-cell or-table__settings-head w-[50px]"><OrTableSettings /></th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
-            <div className="or-table-wrapper or-table-wrapper--page-scroll overflow-x-auto">
-              <table className="or-table table-fixed w-full min-w-[900px]">
-                <colgroup><col style={{ width: "280px" }} /><col style={{ width: "140px" }} /><col style={{ width: "110px" }} /><col style={{ width: "110px" }} /><col style={{ width: "130px" }} /><col style={{ width: "100px" }} /><col style={{ width: "50px" }} /></colgroup>
-                <tbody className="or-table__body">
-                  {[
-                    { name: "Tencent: Hy4 preview", tokens: "3.49T", input: "$0.834", output: "$2.501", ctx: "1,048,576", ago: "3d ago" },
-                    { name: "Alibaba: Wan 3.0 Prime", tokens: "—", input: "from $0.068", output: "—", ctx: "—", ago: "3d ago" },
-                    { name: "Qwen: Qwen3.8 Flash", tokens: "85.5B", input: "$0.15", output: "$0.47", ctx: "1,000,000", ago: "4d ago" },
-                    { name: "Meta: Muse Spark 1.2", tokens: "264B", input: "$0.10", output: "$0.20", ctx: "1,048,576", ago: "1w ago" },
-                  ].map((r) => (
-                    <tr key={r.name} className="border-b last:border-0 hover:bg-[var(--color-card-hover)] transition-colors" style={{ borderColor: "var(--color-border)" }}>
-                      <td className="px-4 py-3 text-sm"><span className="truncate">{r.name}</span></td>
-                      <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.tokens}</td>
-                      <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.input}</td>
-                      <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.output}</td>
-                      <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.ctx}</td>
-                      <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.ago}</td>
-                      <td className="px-4 py-3"></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <OrModelsTable columns={demoColumns} rows={demoRows} settings={<OrTableSettings />} density="regular" minWidth="900px" />
         </div>
       </div>
 

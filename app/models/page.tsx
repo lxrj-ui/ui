@@ -11,6 +11,7 @@ import { SegmentedControl, SegmentedSegment } from "@/components/ui/segmented-co
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
 import { MainTopbar } from "@/components/main-topbar";
+import { OrModelsTable } from "@/components/ui/or-models-table";
 
 const models = [
   { id: "tencent/hy4-preview", name: "Tencent: Hy4 preview", short: "Hy4 preview", provider: "Tencent", tokens: "100B", input: "$0.834", output: "$2.501", context: "1,048,576", latency: "3159ms", throughput: "43 t/s", date: "0d ago", mods: ["Text"], badge: null },
@@ -157,44 +158,41 @@ export default function ModelsPage() {
             </div>
           </div>
 
-          {/* Table */}
+          {/* Table — ตัวกลางจาก docs (components/ui/or-models-table) */}
           <div className="mt-4 rounded-lg border" style={{ borderColor: "var(--color-border)" }}>
-            <table className="w-full text-[15px] table-auto border-separate border-spacing-0">
-              <thead className="sticky top-[206px] z-10" style={{ backgroundColor: "var(--color-card)", boxShadow: "inset 0 -1px 0 var(--color-border)" }}>
-                  <tr className="text-left" style={{ color: "var(--color-muted-foreground)" }}>
-                    <th className="px-4 py-2 font-medium text-xs whitespace-nowrap">Model Name</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Weekly Tokens</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Input</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Output</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Context</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Latency</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Throughput</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs whitespace-nowrap">Released</th>
-                    <th className="px-2 py-2"><Settings size={14} style={{ color: "var(--color-text-faint)" }} /></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((m) => (
-                    <tr key={m.id} className="border-b hover:bg-[var(--color-card-hover)]" style={{ borderColor: "var(--color-border)" }}>
-                      <td className="px-4 py-4">
-                        <div className="flex items-center gap-2.5">
-                          <Avatar size="lg" fallback={m.provider[0]} />
-                          <Link href={`/models/${m.id}`} className="text-[15px] font-medium hover:underline whitespace-nowrap" style={{ color: "var(--color-foreground)" }}>{m.name}</Link>
-                          {m.badge && <Badge variant={m.badge === "50% off" ? "positive" : "outline"} className="text-xs px-1 py-0">{m.badge}</Badge>}
-                        </div>
-                      </td>
-                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.tokens}</td>
-                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.input}</td>
-                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.output || "—"}</td>
-                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.context}</td>
-                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.latency}</td>
-                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums">{m.throughput}</td>
-                      <td className="px-3 py-4 whitespace-nowrap text-right tabular-nums" style={{ color: "var(--color-muted-foreground)" }}>{m.date}</td>
-<td className="px-2 py-4" />
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <OrModelsTable
+              layout="single"
+              stickyTop="206px"
+              size="lg"
+              columns={[
+                { label: "Model Name" },
+                { label: "Weekly Tokens", align: "right" },
+                { label: "Input", align: "right" },
+                { label: "Output", align: "right" },
+                { label: "Context", align: "right" },
+                { label: "Latency", align: "right" },
+                { label: "Throughput", align: "right" },
+                { label: "Released", align: "right" },
+              ]}
+              rows={filtered.map((m) => ({
+                key: m.id,
+                cells: [
+                  <div key="n" className="flex items-center gap-2.5">
+                    <Avatar size="lg" fallback={m.provider[0]} />
+                    <Link href={`/models/${m.id}`} className="text-[15px] font-medium hover:underline whitespace-nowrap" style={{ color: "var(--color-foreground)" }}>{m.name}</Link>
+                    {m.badge && <Badge variant={m.badge === "50% off" ? "positive" : "outline"} className="text-xs px-1 py-0">{m.badge}</Badge>}
+                  </div>,
+                  m.tokens,
+                  m.input,
+                  m.output || "—",
+                  m.context,
+                  m.latency,
+                  m.throughput,
+                  <span key="d" style={{ color: "var(--color-muted-foreground)" }}>{m.date}</span>,
+                ],
+              }))}
+              settings={<Settings size={14} style={{ color: "var(--color-text-faint)" }} />}
+            />
           </div>
         </section>
       </div>
