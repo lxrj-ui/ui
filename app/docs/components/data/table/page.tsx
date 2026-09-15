@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { CopyPageButton } from "@/components/copy-page-button";
 import { Pagination } from "@/components/pagination";
 import { OrTableSettings } from "@/components/or-table-settings";
+import { TableShellDemo } from "./shell-demo";
 
 function AnatomyChip({ n, className }: { n: number; className?: string }) {
   return (
@@ -182,7 +183,92 @@ export default function TablePage() {
         </Table>
       </div>
 
+      <h2 className="text-base font-semibold mb-3">DataTableShell — แบบแอป (verified)</h2>
+      <p className="text-sm mb-3" style={{ color: "var(--color-muted-foreground)" }}>เลย์เอาต์แบบแอป — กรอบสูงเท่าพื้นที่จอที่เหลือ, หัวตารางนิ่งเหนือข้อมูลเสมอ (ข้อมูลไม่ลอดหลังหัว), ข้อมูล scroll ภายในกรอบ (scrollbar ซ่อน) — ตามที่ใช้จริงใน /demo</p>
+
+      <div className="mb-4">
+        <TableShellDemo />
+      </div>
+
+      <h3 className="text-sm font-semibold mb-2">โครงสร้าง</h3>
+      <pre className="rounded-md border p-4 text-xs font-mono leading-6 mb-4 overflow-x-auto" style={{ backgroundColor: "var(--color-card)", borderColor: "var(--color-border)", fontFamily: "var(--font-mono)" }}>
+{`จอ (ไม่มี page scroll)
+├─ controls block  ← ส่ง controlsRef เข้ามาให้ shell วัดขอบล่าง
+└─ DataTableShell (สูง = 100dvh − ขอบล่าง controls − 16px)
+    ├─ header  ← static นิ่งเหนือข้อมูลตลอด
+    └─ พื้นที่ข้อมูล (overflow-y-auto, ซ่อน scrollbar) ← scroll อยู่แค่ในนี้`}
+      </pre>
+
+      <h3 className="text-sm font-semibold mb-2">Props</h3>
+      <div className="mb-4 overflow-hidden rounded-lg border text-sm" style={{ borderColor: "var(--color-border)" }}>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b text-left text-xs" style={{ borderColor: "var(--color-border)", color: "var(--color-muted-foreground)" }}>
+              <th className="px-4 py-2 font-medium">Prop</th>
+              <th className="px-4 py-2 font-medium">ค่าเริ่มต้น</th>
+              <th className="px-4 py-2 font-medium">คำอธิบาย</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b" style={{ borderColor: "var(--color-border)" }}>
+              <td className="px-4 py-2 font-mono text-xs">controlsRef</td>
+              <td className="px-4 py-2">—</td>
+              <td className="px-4 py-2" style={{ color: "var(--color-muted-foreground)" }}>Ref ของ controls block ด้านบน — shell วัดขอบล่างด้วย ResizeObserver เพื่อคำนวณความสูง</td>
+            </tr>
+            <tr className="border-b" style={{ borderColor: "var(--color-border)" }}>
+              <td className="px-4 py-2 font-mono text-xs">header</td>
+              <td className="px-4 py-2">—</td>
+              <td className="px-4 py-2" style={{ color: "var(--color-muted-foreground)" }}>&lt;table&gt; ของหัวตาราง (ตารางแยกจากข้อมูล — คอลัมน์ตรงกันด้วย colgroup เดียวกัน)</td>
+            </tr>
+            <tr className="border-b" style={{ borderColor: "var(--color-border)" }}>
+              <td className="px-4 py-2 font-mono text-xs">children</td>
+              <td className="px-4 py-2">—</td>
+              <td className="px-4 py-2" style={{ color: "var(--color-muted-foreground)" }}>&lt;table&gt; ของแถวข้อมูล (ไม่ต้องมี thead)</td>
+            </tr>
+            <tr>
+              <td className="px-4 py-2 font-mono text-xs">fillParent</td>
+              <td className="px-4 py-2 font-mono text-xs">false</td>
+              <td className="px-4 py-2" style={{ color: "var(--color-muted-foreground)" }}>true = สูงเต็ม parent (flex-1) แทนสูตร 100dvh — ใช้เมื่อฝังใน container ที่กำหนดความสูงเอง</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 className="text-sm font-semibold mb-2">กฎที่ verify แล้ว (ห้ามลืม)</h3>
+      <ol className="mb-10 space-y-1.5 text-sm list-decimal list-inside" style={{ color: "var(--color-muted-foreground)" }}>
+        <li>ตารางใช้ <code className="font-mono text-xs">table-fixed + colgroup</code> (คอลัมน์ตัวเลข % / ชื่อยืดหด) — เนื้อหาเกินคอลัมน์ให้ <code className="font-mono text-xs">truncate</code> ห้ามล้นกรอบ</li>
+        <li>ห้าม <code className="font-mono text-xs">overflow</code> บนหัวตารางหรือ ancestor ที่ทำให้ layout เลื่อน — การ scroll มีแค่พื้นที่ข้อมูลเท่านั้น</li>
+        <li>เส้นคั่นใต้หัว = <code className="font-mono text-xs">inset 0 -1px 0 var(--color-border)</code> บน th เท่านั้น (เบราว์เซอร์ไม่วาด box-shadow บน thead) — ห้ามเส้นทึบสีขาวยืดใต้หัว จะกินข้อความแถว</li>
+        <li>มุมโค้ง: บนที่ header wrapper, ล่างที่ <code className="font-mono text-xs">td แถวสุดท้าย</code> — ห้ามใช้ overflow-hidden ครอบหัวกับข้อมูลชั้นเดียว</li>
+        <li>ซ่อน scrollbar ด้วย <code className="font-mono text-xs">[scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden</code> ทั้ง tabs และพื้นที่ข้อมูล</li>
+        <li>ตัวเลขชิดขวา <code className="font-mono text-xs">tabular-nums</code>, ค่าว่างใช้ "—", วันที่ใช้สี muted</li>
+      </ol>
+
       <h2 className="text-base font-semibold mb-3">Code</h2>
+      <pre className="rounded-md border p-4 text-xs overflow-x-auto font-mono leading-6 mb-6" style={{ backgroundColor: "var(--color-card)", borderColor: "var(--color-border)", fontFamily: "var(--font-mono)" }}>
+{`import { DataTableShell } from "@/components/ui/data-table-shell"
+
+const controlsRef = useRef<HTMLDivElement>(null)
+
+<div ref={controlsRef} className="sticky top-0 z-20 bg-background">
+  {/* controls block — title / search / tabs */}
+</div>
+
+<DataTableShell controlsRef={controlsRef} header={
+  <table className="w-full table-fixed border-separate border-spacing-0 text-sm">
+    <colgroup><col /><col className="w-[9%]" />…</colgroup>
+    <thead><tr>
+      <th className="px-4 py-2.5 font-medium" style={thSticky}>Model Name</th>
+      <th className="truncate px-3 py-2.5 font-medium text-right" style={thSticky}>Input</th>
+    </tr></thead>
+  </table>
+}>
+  <table className="w-full table-fixed border-separate border-spacing-0 text-sm">
+    <colgroup>{/* เดียวกับหัว */}</colgroup>
+    <tbody>{/* แถวข้อมูล — ไม่ต้องมี thead */}</tbody>
+  </table>
+</DataTableShell>`}
+      </pre>
       <pre className="rounded-md border p-4 text-xs overflow-x-auto font-mono leading-6" style={{ backgroundColor: "var(--color-card)", borderColor: "var(--color-border)", fontFamily: "var(--font-mono)" }}>
 {`import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table"
 

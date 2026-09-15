@@ -32,7 +32,7 @@ function ButtonGroup({ variant = "outline", hasLabel = false, children, classNam
             // Shared base — matches Select trigger pattern
             "relative inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors h-9 px-3 focus-visible:z-10 focus-visible:outline-none focus-visible:border-[var(--focus-border)] focus-visible:shadow-[var(--focus-shadow)]",
             // Variant styles
-            variant === "outline" && "bg-[var(--color-input-bg)] text-[var(--color-muted-foreground)] border hover:bg-[var(--color-muted)] hover:text-[var(--color-accent-foreground)]",
+            variant === "outline" && "bg-[var(--color-input-bg)] text-[var(--color-muted-foreground)] border hover:bg-[var(--color-muted)] hover:text-primary",
             variant === "default" && "bg-[var(--color-primary)] text-[var(--color-primary-foreground)] border border-transparent hover:bg-[var(--color-accent-hover)]",
             variant === "ghost" && "bg-transparent text-[var(--color-muted-foreground)] border border-transparent hover:bg-[var(--color-accent-subtle)]",
             // Radius: only outer corners rounded (override base rounded-md)

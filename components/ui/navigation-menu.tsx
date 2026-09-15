@@ -51,7 +51,7 @@ function NavigationMenuTrigger({ className, children, ...props }: React.Componen
       data-slot="navigation-menu-trigger"
       className={cn(
         "group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-2 py-1.5 text-sm font-medium transition-colors",
-        "hover:bg-[var(--color-card-hover)] hover:text-[var(--color-accent-foreground)]",
+        "hover:bg-[var(--color-card-hover)] hover:text-primary",
         "focus-visible:outline-none focus-visible:border-[var(--focus-border)] focus-visible:shadow-[var(--focus-shadow)]",
         "data-popup-open:bg-[var(--color-accent)] data-popup-open:text-[var(--color-accent-foreground)]",
         "disabled:pointer-events-none disabled:opacity-50",

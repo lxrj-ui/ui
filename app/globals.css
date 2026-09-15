@@ -84,7 +84,7 @@
   --color-secondary: rgba(118, 36, 244, 0.08);
   --color-secondary-foreground: #7624f4;
   --color-accent: rgba(118, 36, 244, 0.08);
-  --color-accent-foreground: #7624f4;
+  --color-accent-foreground: #03080a;
   --color-accent-subtle: rgba(118, 36, 244, 0.03);
   --color-accent-border: rgba(118, 36, 244, 0.13);
   --color-accent-hover: rgba(118, 36, 244, 0.88);
@@ -149,7 +149,7 @@
 [data-theme="dark"] {
   --color-background: #03080a;
   --color-foreground: #fcfcfe;
-  --color-card: rgba(252, 252, 254, 0.02);
+  --color-card: #18181b;
   --color-card-foreground: #fcfcfe;
   --color-popover: #18181b;
   --color-popover-foreground: #fcfcfe;
@@ -164,8 +164,8 @@
   --color-secondary: rgba(200, 255, 0, 0.13);
   --color-secondary-foreground: #c8ff00;
   --color-accent: rgba(200, 255, 0, 0.13);
-  --color-accent-foreground: #c8ff00;
-  --color-accent-subtle: rgba(200, 255, 0, 0.05);
+  --color-accent-foreground: #03080a;
+  --color-accent-subtle: rgba(200, 255, 0, 0.18);
   --color-accent-border: rgba(200, 255, 0, 0.20);
   --color-accent-hover: rgba(200, 255, 0, 0.88);
   --color-ring: #c8ff00;
@@ -182,8 +182,10 @@
   --focus-shadow: 0 0 0 3px #fcfcfe0f;
 }
 
-* {
-  border-color: var(--color-border);
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
 }
 
 body {
@@ -195,6 +197,16 @@ body {
   font-weight: var(--font-weight-normal);
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
+}
+
+html[data-font="gordita"] body {
+  font-family: var(--font-brand);
+}
+html[data-font="inter"] body {
+  font-family: "Inter", var(--font-sans);
+}
+html[data-font="google-sans"] body {
+  font-family: "Google Sans", "Google Sans Text", "Noto Sans Thai", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 /* ── Element-level heading styles (match OpenRouter — in @layer base so

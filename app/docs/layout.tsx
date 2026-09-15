@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Sidebar } from "@/components/ui/sidebar";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { MainTopbar } from "@/components/main-topbar";
 
 const sidebarGroups = [
   {
@@ -69,44 +69,25 @@ const sidebarGroups = [
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen transition-colors" style={{ background: "var(--color-background)" }}>
-      <header
-        className="sticky top-0 z-30 border-b backdrop-blur h-14 flex items-center"
-        style={{
-          backgroundColor: "color-mix(in oklab, var(--color-background) 80%, transparent)",
-          borderColor: "var(--color-border)",
-        }}
-      >
-        <div className="flex items-center justify-between w-full max-w-[1280px] mx-auto px-6">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2 hover:opacity-80">
-              <svg width={20} height={20} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 2L22 8.5V15.5L12 22L2 15.5V8.5L12 2Z" fill="var(--color-grape)" />
-                <path d="M12 7L17 10V14L12 17L7 14V10L12 7Z" fill="var(--color-cloud)" />
-              </svg>
-              <span className="font-semibold text-sm" style={{ color: "var(--color-foreground)" }}>LXRJ-UI</span>
+      <MainTopbar
+        navLinks={[
+          { label: "Models", href: "/models" },
+          { label: "Docs", href: "/docs" },
+          { label: "Components", href: "/docs/components" },
+          { label: "Demo", href: "/demo" },
+          { label: "Profile", href: "/demo/profile" },
+        ]}
+        rightExtra={
+          <div className="hidden sm:flex items-center gap-4 text-sm">
+            <Link href="/DESIGN.md" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>
+              DESIGN.md
             </Link>
-            <nav className="hidden md:flex items-center gap-5 text-sm">
-              <Link href="/models" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Models</Link>
-              <Link href="/docs" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Docs</Link>
-              <Link href="/docs/components" className="font-medium" style={{ color: "var(--color-foreground)" }}>Components</Link>
-              <Link href="/demo" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Demo</Link>
-              <Link href="/demo/profile" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Profile</Link>
-            </nav>
+            <a href="https://github.com/lxrj-ui/ui" target="_blank" rel="noreferrer" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>
+              GitHub
+            </a>
           </div>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <div className="hidden sm:flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs" style={{ borderColor: "var(--color-border)", color: "var(--color-text-faint)", background: "var(--color-card)" }}>
-              <span>Search</span>
-              <span className="ml-1 rounded border px-1 py-0.5 text-xs font-mono" style={{ borderColor: "var(--color-border)" }}>⌘K</span>
-            </div>
-            <div className="h-4 w-px hidden sm:block" style={{ background: "var(--color-border)" }} />
-            <div className="flex items-center gap-4 text-sm">
-              <Link href="/DESIGN.md" className="hidden sm:inline hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>DESIGN.md</Link>
-              <a href="https://github.com/lxrj-ui/ui" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>GitHub</a>
-            </div>
-          </div>
-        </div>
-      </header>
+        }
+      />
 
       <div className="flex max-w-[1280px] mx-auto">
         <div className="hidden lg:block">

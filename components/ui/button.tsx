@@ -18,7 +18,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-[var(--color-primary)] text-[var(--color-primary-foreground)] border border-transparent hover:bg-[var(--color-accent-hover)]",
-        outline: "bg-[var(--color-background)] text-[var(--color-muted-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-muted)] hover:text-[var(--color-accent-foreground)]",
+        outline: "bg-[var(--color-background)] text-[var(--color-muted-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-muted)] hover:text-primary",
         ghost: "bg-transparent text-[var(--color-muted-foreground)] border border-transparent hover:bg-[var(--color-accent-subtle)] hover:text-[var(--color-foreground)]",
         destructive: "bg-[var(--color-destructive)] text-[var(--color-destructive-foreground)] border border-transparent hover:opacity-90",
         link: "bg-transparent text-[var(--color-foreground)] border border-transparent underline underline-offset-2 decoration-foreground/40 hover:decoration-foreground",

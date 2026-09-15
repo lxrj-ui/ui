@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { MainTopbar } from "@/components/main-topbar";
 import {
   ExternalLink,
   ArrowRight,
@@ -382,39 +382,19 @@ export default function Home() {
   return (
     <div className="min-h-screen transition-colors" style={{ fontFamily: "var(--font-sans)" }}>
       {/* ── Nav ── */}
-      <nav
-        className="sticky top-0 z-10 flex items-center justify-between px-6 h-14 backdrop-blur border-b"
-        style={{
-          backgroundColor: "color-mix(in oklab, var(--color-background) 80%, transparent)",
-          borderColor: "var(--color-border)",
-        }}
-      >
-        <Link href="/" className="flex items-center gap-2 hover:opacity-80">
-          <svg width={20} height={20} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 2L22 8.5V15.5L12 22L2 15.5V8.5L12 2Z" fill="var(--color-grape)" />
-            <path d="M12 7L17 10V14L12 17L7 14V10L12 7Z" fill="var(--color-cloud)" />
-          </svg>
-          <span className="font-bold text-sm" style={{ color: "var(--color-foreground)" }}>LXRJ-UI</span>
-          <span className="hidden sm:inline font-normal text-xs ml-1" style={{ color: "var(--color-text-faint)" }}>
-            The Unified Interface
-          </span>
-        </Link>
-
-        <div className="hidden md:flex gap-5 text-sm" style={{ color: "var(--color-muted-foreground)" }}>
-          {navLinks.map((l) => (
-            <Link key={l.label} href={l.href} className="hover:opacity-80 transition-opacity">
-              {l.label}
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
+      <MainTopbar
+        navLinks={[
+          { label: "Models", href: "/models" },
+          { label: "Demo", href: "/demo" },
+          { label: "Components", href: "/docs/components" },
+          { label: "Docs", href: "/docs" },
+        ]}
+        rightExtra={
           <Link href="/docs/components">
             <Button size="sm">Get started</Button>
           </Link>
-        </div>
-      </nav>
+        }
+      />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto text-center pt-20 pb-10 px-6">

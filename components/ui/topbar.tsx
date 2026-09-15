@@ -67,7 +67,7 @@ function TopbarLink({
       data-active={active ? "" : undefined}
       className={cn(
         "flex h-9 items-center rounded-md px-2.5 text-sm font-medium text-[var(--color-muted-foreground)] no-underline transition-colors",
-        "hover:bg-[var(--color-card-hover)] hover:text-[var(--color-accent-foreground)]",
+        "hover:bg-[var(--color-card-hover)] hover:text-primary",
         "data-active:bg-[var(--color-card-hover)] data-active:text-[var(--color-accent-foreground)]",
         "focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-[var(--color-foreground)]",
         className
@@ -79,7 +79,7 @@ function TopbarLink({
 
 const topbarIconButtonClass =
   "grid size-9 place-items-center rounded-md bg-transparent text-[var(--color-muted-foreground)] transition-colors " +
-  "hover:bg-[var(--color-card-hover)] hover:text-[var(--color-accent-foreground)] " +
+  "hover:bg-[var(--color-card-hover)] hover:text-primary " +
   "focus-visible:outline-none focus-visible:border-[var(--focus-border)] focus-visible:shadow-[var(--focus-shadow)]";
 
 interface AccountMenuUser {
@@ -176,7 +176,7 @@ function AccountMenuItem({
       className={cn(
         "flex w-full cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-left text-sm outline-none transition-colors",
         "[&_svg]:size-4 [&_svg]:shrink-0",
-        "hover:bg-[var(--color-card-hover)] hover:text-[var(--color-accent-foreground)]",
+        "hover:bg-[var(--color-card-hover)] hover:text-primary",
         "focus-visible:bg-[var(--color-card-hover)] focus-visible:text-[var(--color-accent-foreground)]",
         "data-[variant=destructive]:text-[var(--color-negative-text)] data-[variant=destructive]:hover:bg-[var(--color-negative-bg)]",
         className

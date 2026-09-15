@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { Search, ChevronRight, Settings, ArrowDownUp, Layers, List, Table2, Type, Image as ImageIcon, Video, Mic, Boxes, AudioLines, FileInput, Tag, StretchHorizontal, DollarSign, LayoutGrid, Code, Building, User } from "lucide-react";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { useEffect, useRef, useState } from "react";
+import { Search, ChevronDown, ChevronRight, Settings, ArrowDownUp, Layers, List, Table2, Type, Image as ImageIcon, Video, Mic, Boxes, AudioLines, FileInput, Tag, StretchHorizontal, DollarSign, LayoutGrid, Code, Building, User, Trophy, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectContent, SelectOption } from "@/components/ui/select";
 import { SegmentedControl, SegmentedSegment } from "@/components/ui/segmented-control";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
+import { MainTopbar } from "@/components/main-topbar";
 
 const models = [
   { id: "tencent/hy4-preview", name: "Tencent: Hy4 preview", short: "Hy4 preview", provider: "Tencent", tokens: "100B", input: "$0.834", output: "$2.501", context: "1,048,576", latency: "3159ms", throughput: "43 t/s", date: "0d ago", mods: ["Text"], badge: null },
@@ -18,7 +18,6 @@ const models = [
   { id: "qwen/qwen3.8-flash", name: "Qwen: Qwen3.8 Flash", short: "Qwen3.8 Flash", provider: "Qwen", tokens: "20B", input: "$0.15", output: "$0.47", context: "1,000,000", latency: "3862ms", throughput: "54 t/s", date: "1d ago", mods: ["Text","Image"], badge: null },
   { id: "meta/muse-image", name: "Meta: Muse Image", short: "Muse Image", provider: "Meta", tokens: "65.1M", input: "$0.01", output: "", context: "65,536", latency: "7ms", throughput: "91 t/s", date: "2d ago", mods: ["Image"], badge: null },
   { id: "z-ai/glm-5.3-flash", name: "Z.ai: GLM 5.3 Flash", short: "GLM 5.3 Flash", provider: "Z.ai", tokens: "2.88T", input: "$0.075", output: "$0.25", context: "1,310,720", latency: "2985ms", throughput: "33 t/s", date: "2d ago", mods: ["Text"], badge: "50% off" },
-  // --- dummy ---
   { id: "recraft/recraft-v4-styles-pro", name: "Recraft: Recraft V4 Styles Pro", short: "Recraft V4 Styles Pro", provider: "Recraft", tokens: "4.67M", input: "from $0.10", output: "", context: "65,536", latency: "—", throughput: "—", date: "2d ago", mods: ["Image"], badge: null },
   { id: "alibaba/wan-3.0", name: "Alibaba: Wan 3.0", short: "Wan 3.0", provider: "Alibaba", tokens: "—", input: "from $0.0425", output: "", context: "—", latency: "—", throughput: "—", date: "3d ago", mods: ["Video"], badge: "15% off" },
   { id: "meta/muse-spark-1.2-contributor", name: "Meta: Muse Spark 1.2 Contributor", short: "Muse Spark 1.2 Contributor", provider: "Meta", tokens: "223B", input: "$0.10", output: "$0.20", context: "1,048,576", latency: "3948ms", throughput: "77 t/s", date: "6d ago", mods: ["Text"], badge: null },
@@ -45,166 +44,209 @@ const modalityTabs = [
   { label: "Audio", count: 4, icon: AudioLines },
 ];
 
+const filterSections = [
+  { id: "input_mods", label: "Input modalities", icon: FileInput },
+  { id: "discount", label: "Discounted", icon: Tag },
+  { id: "context", label: "Context length", icon: StretchHorizontal },
+  { id: "prompt", label: "Prompt pricing", icon: DollarSign },
+  { id: "series", label: "Series", icon: LayoutGrid },
+  { id: "cats", label: "Categories", icon: Tag },
+  { id: "supported", label: "Supported parameters", icon: Code },
+  { id: "providers", label: "Providers", icon: Building },
+  { id: "authors", label: "Model authors", icon: User },
+];
+
+const thSticky = { boxShadow: "inset 0 -1px 0 var(--color-border)" };
+
 export default function ModelsPage() {
   const [q, setQ] = useState("");
   const [modality, setModality] = useState("All");
   const [view, setView] = useState("table");
   const [sort, setSort] = useState("newest");
+  const [open, setOpen] = useState<Record<string, boolean>>({ input_mods: true });
+  const controlsRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const controls = controlsRef.current;
+    const frame = frameRef.current;
+    if (!controls || !frame) return;
+    const update = () => frame.style.setProperty("--or-table-sticky-top", `${Math.round(controls.getBoundingClientRect().bottom)}px`);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(controls);
+    return () => ro.disconnect();
+  }, []);
 
   const filtered = models.filter((m) => `${m.name} ${m.provider}`.toLowerCase().includes(q.toLowerCase()) && (modality === "All" || m.mods.includes(modality)));
 
   return (
-    <div className="min-h-screen" style={{ fontFamily: "var(--font-sans)", background: "var(--color-background)", color: "var(--color-foreground)" }}>
-      <header className="sticky top-0 z-30 border-b backdrop-blur h-14 flex items-center" style={{ backgroundColor: "color-mix(in oklab, var(--color-background) 80%, transparent)", borderColor: "var(--color-border)" }}>
-        <div className="flex items-center justify-between w-full max-w-[1600px] mx-auto px-6">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2 hover:opacity-80">
-              <svg width={20} height={20} viewBox="0 0 24 24" fill="none"><path d="M12 2L22 8.5V15.5L12 22L2 15.5V8.5L12 2Z" fill="var(--color-grape)" /><path d="M12 7L17 10V14L12 17L7 14V10L12 7Z" fill="var(--color-cloud)" /></svg>
-              <span className="font-semibold text-sm">LXRJ-UI</span>
-            </Link>
-            <nav className="hidden md:flex items-center gap-5 text-sm">
-              <Link href="/models" className="font-medium" style={{ color: "var(--color-foreground)" }}>Models</Link>
-              <span className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Benchmarks</span>
-              <span className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Chat</span>
-              <Link href="/demo" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Rankings</Link>
-            </nav>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs" style={{ borderColor: "var(--color-border)", color: "var(--color-text-faint)", background: "var(--color-card)" }}>
-              <Search size={12} /> Search <span className="ml-1 rounded border px-1 py-0.5 text-xs font-mono" style={{ borderColor: "var(--color-border)" }}>⌘K</span>
-            </div>
-            <a href="https://github.com/lxrj-ui/ui" className="text-sm hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>GitHub</a>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-background text-foreground" style={{ fontFamily: "var(--font-sans)" }}>
+      <MainTopbar
+        navLinks={[
+          { label: "Models", href: "/models" },
+          { label: "Benchmarks" },
+          { label: "Chat" },
+          { label: "Rankings", href: "/demo" },
+        ]}
+        rightExtra={
+          <button type="button" className="flex shrink-0 items-center gap-2 rounded-md p-1 hover:bg-muted/40 transition-colors">
+            <Avatar size="sm" fallback="P" />
+            <span className="hidden sm:inline text-sm font-medium">Personal</span>
+            <ChevronDown className="hidden sm:block size-3.5 text-muted-foreground" />
+          </button>
+        }
+      />
 
       <div className="flex max-w-[1600px] mx-auto">
-        {/* Left sidebar — openrouter models filters */}
-        <nav className="hidden md:flex sticky top-14 h-[calc(100dvh-3.5rem)] w-66 shrink-0 flex-col gap-0 overflow-hidden border-r bg-card pl-6 pt-3 text-sm" style={{ borderColor: "var(--color-border)" }}>
-          <div className="flex-1 overflow-y-auto pr-5 pb-4 space-y-0">
-            <Accordion>
-              <AccordionItem id="input_mods">
-                <AccordionTrigger id="input_mods"><span className="flex items-center gap-2 text-sm"><FileInput className="size-4" /> Input modalities</span></AccordionTrigger>
-                <AccordionContent id="input_mods">
-                  <div className="flex flex-col gap-1 pl-2">
-                    {["Text","Image","File","Audio","Video"].map((o) => (
-                      <label key={o} className="flex h-8 items-center gap-2 rounded-md px-2 hover:bg-[var(--color-card-hover)] cursor-pointer text-xs" style={{ color: "var(--color-muted-foreground)" }}>
-                        <span className="grid place-content-center peer h-4 w-4 shrink-0 rounded-sm border border-foreground/30 bg-muted"><input type="checkbox" className="sr-only" /></span>{o}
-                      </label>
-                    ))}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem id="discount"><AccordionTrigger id="discount"><span className="flex items-center gap-2 text-sm"><Tag className="size-4" /> Discounted</span></AccordionTrigger><AccordionContent id="discount"><div className="pl-4 text-sm" style={{ color: "var(--color-muted-foreground)" }}>—</div></AccordionContent></AccordionItem>
-              <AccordionItem id="context"><AccordionTrigger id="context"><span className="flex items-center gap-2 text-sm"><StretchHorizontal className="size-4" /> Context length</span></AccordionTrigger><AccordionContent id="context"><div className="pl-4 text-sm" style={{ color: "var(--color-muted-foreground)" }}>—</div></AccordionContent></AccordionItem>
-              <AccordionItem id="prompt"><AccordionTrigger id="prompt"><span className="flex items-center gap-2 text-sm"><DollarSign className="size-4" /> Prompt pricing</span></AccordionTrigger><AccordionContent id="prompt"><div className="pl-4 text-sm" style={{ color: "var(--color-muted-foreground)" }}>—</div></AccordionContent></AccordionItem>
-              <AccordionItem id="series"><AccordionTrigger id="series"><span className="flex items-center gap-2 text-sm"><LayoutGrid className="size-4" /> Series</span></AccordionTrigger><AccordionContent id="series"><div className="pl-4 text-sm" style={{ color: "var(--color-muted-foreground)" }}>—</div></AccordionContent></AccordionItem>
-              <AccordionItem id="cats"><AccordionTrigger id="cats"><span className="flex items-center gap-2 text-sm"><Tag className="size-4" /> Categories</span></AccordionTrigger><AccordionContent id="cats"><div className="pl-4 text-sm" style={{ color: "var(--color-muted-foreground)" }}>—</div></AccordionContent></AccordionItem>
-              <AccordionItem id="supported"><AccordionTrigger id="supported"><span className="flex items-center gap-2 text-sm"><Code className="size-4" /> Supported parameters</span></AccordionTrigger><AccordionContent id="supported"><div className="pl-4 text-sm" style={{ color: "var(--color-muted-foreground)" }}>—</div></AccordionContent></AccordionItem>
-              <AccordionItem id="providers2"><AccordionTrigger id="providers2"><span className="flex items-center gap-2 text-sm"><Building className="size-4" /> Providers</span></AccordionTrigger><AccordionContent id="providers2"><div className="pl-4 text-sm" style={{ color: "var(--color-muted-foreground)" }}>—</div></AccordionContent></AccordionItem>
-              <AccordionItem id="authors"><AccordionTrigger id="authors"><span className="flex items-center gap-2 text-sm"><User className="size-4" /> Model authors</span></AccordionTrigger><AccordionContent id="authors"><div className="pl-4 text-sm" style={{ color: "var(--color-muted-foreground)" }}>—</div></AccordionContent></AccordionItem>
-            </Accordion>
+        <nav className="hidden md:flex sticky top-14 h-[calc(100dvh-3.5rem)] w-66 shrink-0 flex-col border-r border-border bg-card pl-6 pt-3 text-sm overflow-hidden">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden pr-5 pb-4">
+            {filterSections.map((s) => {
+              const Icon = s.icon;
+              const isOpen = !!open[s.id];
+              return (
+                <div key={s.id}>
+                  <button type="button" onClick={() => setOpen((o) => ({ ...o, [s.id]: !o[s.id] }))} className="group flex w-full cursor-pointer items-center justify-between gap-2 py-3 px-2 text-xs font-medium text-foreground">
+                    <span className="flex items-center gap-2 truncate">
+                      <Icon className="size-4" />
+                      <span className="group-hover:underline">{s.label}</span>
+                    </span>
+                    {isOpen ? <ChevronDown className="size-4 text-muted-foreground" /> : <ChevronRight className="size-4 text-muted-foreground" />}
+                  </button>
+                  {isOpen && (
+                    <div className="flex flex-col gap-0.5 pb-2">
+                      {["Text","Image","File","Audio","Video"].map((o) => (
+                        <label key={o} className="flex h-7 cursor-pointer items-center gap-2 rounded-md px-2 text-xs text-muted-foreground hover:bg-muted/40">
+                          <input type="checkbox" className="h-4 w-4 shrink-0 cursor-pointer rounded-sm border border-foreground/30 bg-muted accent-[var(--color-primary)]" />
+                          {o}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </nav>
 
-        {/* Main */}
-        <section className="flex-1 min-w-0 px-4 sm:px-6 pb-24">
-          <div className="sticky top-14 z-20 bg-[var(--color-background)] pt-3 pb-2">
-            <div className="flex items-center justify-between gap-2">
-              <h1 className="text-2xl font-bold">Models</h1>
+        <section className="flex-1 min-w-0 px-4 sm:px-6 pb-4">
+          <div ref={controlsRef} className="sticky top-14 z-20 bg-background">
+            <div className="flex w-full flex-col gap-2 pt-2 pb-2 sm:gap-4 sm:pt-3">
+              <div className="hidden sm:flex items-center justify-between gap-2">
+                <h1 className="text-xl font-semibold">Models</h1>
+                <div className="flex shrink-0 items-center gap-2">
+                  <Button variant="outline" size="sm" className="h-9 px-3"><Trophy className="size-3.5" /> Compare</Button>
+                  <Button variant="outline" size="sm" className="h-9 px-3"><Sparkles className="size-3.5" /> Discover Models</Button>
+                </div>
+              </div>
+
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm">Compare</Button>
-                <Button size="sm">Discover Models</Button>
+                <div className="relative w-full md:w-80">
+                  <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input placeholder="Search models..." value={q} onChange={(e) => setQ(e.target.value)} className="pl-9 h-9" />
+                </div>
+                <Select value={sort} onValueChange={setSort}>
+                  <SelectTrigger className="w-full sm:w-[14.75rem] sm:flex-none text-sm">
+                    <span className="flex items-center gap-2"><ArrowDownUp className="size-3.5 shrink-0" />{sort === "newest" ? "Newest" : sort === "popular" ? "Popular" : "Pricing"}</span>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectOption value="newest">Newest</SelectOption>
+                    <SelectOption value="popular">Popular</SelectOption>
+                    <SelectOption value="pricing">Pricing</SelectOption>
+                  </SelectContent>
+                </Select>
+                <Select defaultValue="all">
+                  <SelectTrigger className="w-full sm:w-40 sm:flex-none text-sm">
+                    <span className="flex items-center gap-2"><Layers className="size-3.5 shrink-0" />All variants</span>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectOption value="all">All variants</SelectOption>
+                    <SelectOption value="standard">Standard</SelectOption>
+                    <SelectOption value="free">Free</SelectOption>
+                    <SelectOption value="extended">Extended</SelectOption>
+                    <SelectOption value="thinking">Thinking</SelectOption>
+                    <SelectOption value="batch">Batch</SelectOption>
+                  </SelectContent>
+                </Select>
+                <div className="ml-auto shrink-0">
+                  <SegmentedControl value={view} onValueChange={setView}>
+                    <SegmentedSegment value="list"><span className="flex items-center gap-1.5"><List className="size-4" />List</span></SegmentedSegment>
+                    <SegmentedSegment value="table"><span className="flex items-center gap-1.5"><Table2 className="size-4" />Table</span></SegmentedSegment>
+                  </SegmentedControl>
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-center gap-2 mt-3">
-              <div className="relative w-80">
-                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: "var(--color-text-faint)" }} />
-                <Input placeholder="Search models..." value={q} onChange={(e) => setQ(e.target.value)} className="pl-9 h-9 text-sm" />
+              <div className="border-b border-border">
+                <div className="flex overflow-x-auto -mb-px [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  {modalityTabs.map((t) => {
+                    const Icon = t.icon;
+                    const active = modality === t.label;
+                    return (
+                      <button key={t.label} type="button" onClick={() => setModality(t.label)} className={`shrink-0 border-b-2 px-4 py-2 text-xs font-medium transition-colors cursor-pointer ${active ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+                        <span className="inline-flex items-center gap-1.5">
+                          {Icon && <Icon className="size-4" />} {t.label} {t.count !== null && <span className="tabular-nums">{t.count}</span>}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-              <Select value={sort} onValueChange={setSort}>
-                <SelectTrigger className="w-[160px] text-sm">
-                  <span className="flex items-center gap-2"><ArrowDownUp size={14} />{sort === "newest" ? "Newest" : sort === "popular" ? "Popular" : "Pricing"}</span>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectOption value="newest">Newest</SelectOption>
-                  <SelectOption value="popular">Popular</SelectOption>
-                  <SelectOption value="pricing">Pricing</SelectOption>
-                </SelectContent>
-              </Select>
-              <Select defaultValue="all">
-                <SelectTrigger className="w-[160px] text-sm">
-                  <span className="flex items-center gap-2"><Layers size={14} />All variants</span>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectOption value="all">All variants</SelectOption>
-                  <SelectOption value="standard">Standard</SelectOption>
-                  <SelectOption value="free">Free</SelectOption>
-                  <SelectOption value="extended">Extended</SelectOption>
-                  <SelectOption value="thinking">Thinking</SelectOption>
-                  <SelectOption value="batch">Batch</SelectOption>
-                </SelectContent>
-              </Select>
-              <div className="ml-auto">
-                <SegmentedControl value={view} onValueChange={setView}>
-                  <SegmentedSegment value="list"><span className="flex items-center gap-1.5"><List size={14} />List</span></SegmentedSegment>
-                  <SegmentedSegment value="table"><span className="flex items-center gap-1.5"><Table2 size={14} />Table</span></SegmentedSegment>
-                </SegmentedControl>
-              </div>
-            </div>
-
-            <div className="flex gap-1 overflow-x-auto border-b mt-3" style={{ borderColor: "var(--color-border)" }}>
-              {modalityTabs.map((t) => {
-                const Icon = t.icon;
-                return (
-                  <button key={t.label} onClick={() => setModality(t.label)} className="shrink-0 px-4 py-2 text-sm font-medium border-b-2 transition-colors flex items-center gap-1.5" style={{ borderColor: modality === t.label ? "var(--color-primary)" : "transparent", color: modality === t.label ? "var(--color-primary)" : "var(--color-muted-foreground)" }}>
-                    {Icon && <Icon size={14} />} {t.label} {t.count !== null && <span className="tabular-nums">{t.count}</span>}
-                  </button>
-                );
-              })}
             </div>
           </div>
 
-          {/* Table */}
-          <div className="mt-4 rounded-lg border" style={{ borderColor: "var(--color-border)" }}>
-            <table className="w-full text-sm table-fixed border-separate border-spacing-0">
-              <thead className="sticky top-[206px] z-10" style={{ backgroundColor: "var(--color-card)", boxShadow: "inset 0 -1px 0 var(--color-border)" }}>
-                  <tr className="text-left" style={{ color: "var(--color-muted-foreground)" }}>
-                    <th className="px-4 py-2 font-medium min-w-[280px] text-xs">Model Name</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Weekly Tokens</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Input</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Output</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Context</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Latency</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Throughput</th>
-                    <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Released</th>
-                    <th className="px-2 py-2"><Settings size={14} style={{ color: "var(--color-text-faint)" }} /></th>
+          <div ref={frameRef} className="flex flex-col overflow-hidden rounded-lg bg-card" style={{ height: "calc(100dvh - var(--or-table-sticky-top, 223px) - 1rem)" }}>
+            <div className="rounded-t-lg border-t border-x border-border" style={{ backgroundColor: "var(--color-card)" }}>
+              <table className="w-full table-fixed border-separate border-spacing-0 text-sm">
+                <colgroup>
+                  <col />
+                  <col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" />
+                  <col className="w-10" />
+                </colgroup>
+                <thead>
+                  <tr className="text-left text-xs text-muted-foreground [&_th]:leading-5">
+                    <th className="px-4 py-2.5 font-medium whitespace-nowrap" style={thSticky}>Model Name</th>
+                    <th className="truncate px-3 py-2.5 font-medium text-right tabular-nums" style={thSticky}>Weekly Tokens</th>
+                    <th className="truncate px-3 py-2.5 font-medium text-right tabular-nums" style={thSticky}>Input</th>
+                    <th className="truncate px-3 py-2.5 font-medium text-right tabular-nums" style={thSticky}>Output</th>
+                    <th className="truncate px-3 py-2.5 font-medium text-right tabular-nums" style={thSticky}>Context</th>
+                    <th className="truncate px-3 py-2.5 font-medium text-right tabular-nums" style={thSticky}>Latency</th>
+                    <th className="truncate px-3 py-2.5 font-medium text-right tabular-nums" style={thSticky}>Throughput</th>
+                    <th className="truncate px-3 py-2.5 font-medium text-right tabular-nums" style={thSticky}>Released</th>
+                    <th className="px-2 py-2.5" style={thSticky}><Settings size={14} className="text-muted-foreground" /></th>
                   </tr>
                 </thead>
-                <tbody>
-                  {filtered.map((m) => (
-                    <tr key={m.id} className="border-b hover:bg-[var(--color-card-hover)]" style={{ borderColor: "var(--color-border)" }}>
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-2">
-                          <Avatar size="sm" fallback={m.provider[0]} />
-                          <Link href={`/models/${m.id}`} className="truncate text-sm font-medium hover:underline" style={{ color: "var(--color-foreground)" }}>{m.name}</Link>
-                          {m.badge && <Badge variant={m.badge === "50% off" ? "positive" : "outline"} className="text-xs px-1 py-0">{m.badge}</Badge>}
-                        </div>
-                      </td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.tokens}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.input}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.output || "—"}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.context}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.latency}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{m.throughput}</td>
-                      <td className="px-3 py-3 text-right tabular-nums" style={{ color: "var(--color-muted-foreground)" }}>{m.date}</td>
-                      <td className="px-2 py-3" />
-                    </tr>
-                  ))}
-                </tbody>
               </table>
             </div>
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-b-lg border-x border-b border-border [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <table className="w-full table-fixed border-separate border-spacing-0 text-sm [&_tr:last-child]:border-b-0 [&_tr:last-child>td:first-child]:rounded-bl-lg [&_tr:last-child>td:last-child]:rounded-br-lg">
+              <colgroup>
+                <col />
+                <col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" />
+                <col className="w-10" />
+              </colgroup>
+              <tbody>
+                {filtered.map((m) => (
+                  <tr key={m.id} className="border-b border-border hover:bg-[var(--color-card-hover)] transition-colors">
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <Avatar size="sm" fallback={m.provider[0]} />
+                        <Link href={`/models/${m.id}`} className="truncate text-sm font-medium text-foreground hover:underline underline-offset-2">{m.name}</Link>
+                        {m.badge && <Badge variant={m.badge === "50% off" ? "positive" : "outline"} className="shrink-0 text-xs px-1 py-0">{m.badge}</Badge>}
+                      </div>
+                    </td>
+                    <td className="truncate px-3 py-3 text-right tabular-nums">{m.tokens}</td>
+                    <td className="truncate px-3 py-3 text-right tabular-nums">{m.input}</td>
+                    <td className="truncate px-3 py-3 text-right tabular-nums">{m.output || "—"}</td>
+                    <td className="truncate px-3 py-3 text-right tabular-nums">{m.context}</td>
+                    <td className="truncate px-3 py-3 text-right tabular-nums">{m.latency}</td>
+                    <td className="truncate px-3 py-3 text-right tabular-nums">{m.throughput}</td>
+                    <td className="truncate px-3 py-3 text-right tabular-nums text-muted-foreground">{m.date}</td>
+                    <td className="px-2 py-3" />
+                  </tr>
+                ))}
+              </tbody>
+              </table>
+            </div>
+          </div>
         </section>
       </div>
     </div>

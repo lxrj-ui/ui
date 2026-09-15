@@ -59,7 +59,7 @@ function SegmentedSegment({ selected, children, className, ...props }: Segmented
         "inline-flex items-center justify-center rounded-sm px-3 py-1 text-sm font-medium transition-colors",
         selected
           ? "bg-[var(--color-background)] text-[var(--color-foreground)] shadow-sm"
-          : "text-[var(--color-muted-foreground)] hover:text-[var(--color-accent-foreground)]",
+          : "text-[var(--color-muted-foreground)] hover:text-primary",
         className
       )}
       {...props}

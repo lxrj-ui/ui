@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Search, ChevronRight, Settings, ArrowDownUp, Layers, List, Table2, Type, Image as ImageIcon, Video, Mic, Boxes, AudioLines, FileInput, Tag, StretchHorizontal, DollarSign, LayoutGrid, Code, Building, User } from "lucide-react";
+import { ChevronRight, Settings, ArrowDownUp, Layers, List, Table2, Type, Image as ImageIcon, Video, Mic, Boxes, AudioLines, FileInput, Tag, StretchHorizontal, DollarSign, LayoutGrid, Code, Building, User } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { Select, SelectTrigger, SelectContent, SelectOption } from "@/components
 import { SegmentedControl, SegmentedSegment } from "@/components/ui/segmented-control";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
+import { MainTopbar } from "@/components/main-topbar";
 
 const models = [
   { id: "tencent/hy4-preview", name: "Tencent: Hy4 preview", short: "Hy4 preview", provider: "Tencent", tokens: "100B", input: "$0.834", output: "$2.501", context: "1,048,576", latency: "3159ms", throughput: "43 t/s", date: "0d ago", mods: ["Text"], badge: null },
@@ -55,28 +56,19 @@ export default function ModelsPage() {
 
   return (
     <div className="min-h-screen" style={{ fontFamily: "var(--font-sans)", background: "var(--color-background)", color: "var(--color-foreground)" }}>
-      <header className="sticky top-0 z-30 border-b backdrop-blur h-14 flex items-center" style={{ backgroundColor: "color-mix(in oklab, var(--color-background) 80%, transparent)", borderColor: "var(--color-border)" }}>
-        <div className="flex items-center justify-between w-full max-w-[1600px] mx-auto px-6">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2 hover:opacity-80">
-              <svg width={20} height={20} viewBox="0 0 24 24" fill="none"><path d="M12 2L22 8.5V15.5L12 22L2 15.5V8.5L12 2Z" fill="var(--color-grape)" /><path d="M12 7L17 10V14L12 17L7 14V10L12 7Z" fill="var(--color-cloud)" /></svg>
-              <span className="font-semibold text-sm">LXRJ-UI</span>
-            </Link>
-            <nav className="hidden md:flex items-center gap-5 text-sm">
-              <Link href="/models" className="font-medium" style={{ color: "var(--color-foreground)" }}>Models</Link>
-              <span className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Benchmarks</span>
-              <span className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Chat</span>
-              <Link href="/demo" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Rankings</Link>
-            </nav>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs" style={{ borderColor: "var(--color-border)", color: "var(--color-text-faint)", background: "var(--color-card)" }}>
-              <Search size={12} /> Search <span className="ml-1 rounded border px-1 py-0.5 text-xs font-mono" style={{ borderColor: "var(--color-border)" }}>⌘K</span>
-            </div>
-            <a href="https://github.com/lxrj-ui/ui" className="text-sm hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>GitHub</a>
-          </div>
-        </div>
-      </header>
+      <MainTopbar
+        navLinks={[
+          { label: "Models", href: "/models" },
+          { label: "Benchmarks" },
+          { label: "Chat" },
+          { label: "Rankings", href: "/demo" },
+        ]}
+        rightExtra={
+          <a href="https://github.com/lxrj-ui/ui" target="_blank" rel="noreferrer" className="text-sm hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>
+            GitHub
+          </a>
+        }
+      />
 
       <div className="flex max-w-[1600px] mx-auto">
         <nav className="hidden md:flex sticky top-14 h-[calc(100dvh-3.5rem)] w-66 shrink-0 flex-col gap-0 overflow-hidden border-r bg-card pl-6 pt-3 text-sm" style={{ borderColor: "var(--color-border)" }}>
@@ -167,10 +159,10 @@ export default function ModelsPage() {
 
           {/* Table */}
           <div className="mt-4 rounded-lg border" style={{ borderColor: "var(--color-border)" }}>
-            <table className="w-full text-sm table-fixed border-separate border-spacing-0">
+            <table className="w-full text-sm table-auto border-separate border-spacing-0">
               <thead className="sticky top-[206px] z-10" style={{ backgroundColor: "var(--color-card)", boxShadow: "inset 0 -1px 0 var(--color-border)" }}>
                   <tr className="text-left" style={{ color: "var(--color-muted-foreground)" }}>
-                    <th className="px-4 py-2 font-medium min-w-[280px] text-xs">Model Name</th>
+                    <th className="px-4 py-2 font-medium text-xs whitespace-nowrap">Model Name</th>
                     <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Weekly Tokens</th>
                     <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Input</th>
                     <th className="px-3 py-2 font-medium text-right tabular-nums text-xs">Output</th>
@@ -187,7 +179,7 @@ export default function ModelsPage() {
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
                           <Avatar size="sm" fallback={m.provider[0]} />
-                          <Link href={`/models/${m.id}`} className="truncate text-sm font-medium hover:underline" style={{ color: "var(--color-foreground)" }}>{m.name}</Link>
+                          <Link href={`/models/${m.id}`} className="text-sm font-medium hover:underline whitespace-nowrap" style={{ color: "var(--color-foreground)" }}>{m.name}</Link>
                           {m.badge && <Badge variant={m.badge === "50% off" ? "positive" : "outline"} className="text-xs px-1 py-0">{m.badge}</Badge>}
                         </div>
                       </td>

@@ -30,15 +30,15 @@ function Table({ className, density, ...props }: React.HTMLAttributes<HTMLTableE
   );
 }
 
-function TableHeader({ className, sticky, ...props }: React.HTMLAttributes<HTMLTableSectionElement> & { sticky?: boolean }) {
+function TableHeader({ className, sticky, top, ...props }: React.HTMLAttributes<HTMLTableSectionElement> & { sticky?: boolean; top?: number }) {
   return (
     <thead
       className={cn(
         "[&_tr]:border-b",
-        sticky && "sticky top-0 bg-background z-10",
+        sticky && "sticky z-10 bg-background [&_th:first-child]:rounded-tl-lg [&_th:last-child]:rounded-tr-lg",
         className
       )}
-      style={{ borderColor: "var(--color-border)" }}
+      style={{ borderColor: "var(--color-border)", ...(top !== undefined ? { top } : {}) }}
       {...props}
     />
   );
