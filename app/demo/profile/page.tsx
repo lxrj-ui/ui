@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +10,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
 import { Callout } from "@/components/callout";
+import { MainTopbar } from "@/components/main-topbar";
 import { Copy } from "lucide-react";
 
 const apiKeys = [
@@ -40,26 +40,16 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen" style={{ fontFamily: "var(--font-sans)", background: "var(--color-background)", color: "var(--color-foreground)" }}>
-      {/* Navbar */}
-      <nav className="sticky top-0 z-50 border-b backdrop-blur" style={{ backgroundColor: "color-mix(in oklab, var(--color-background) 80%, transparent)", borderColor: "var(--color-border)" }}>
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-14">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2 hover:opacity-80">
-              <svg width={20} height={20} viewBox="0 0 24 24" fill="none"><path d="M12 2L22 8.5V15.5L12 22L2 15.5V8.5L12 2Z" fill="var(--color-grape)" /><path d="M12 7L17 10V14L12 17L7 14V10L12 7Z" fill="var(--color-cloud)" /></svg>
-              <span className="font-bold text-sm">LXRJ-UI</span>
-            </Link>
-            <div className="hidden md:flex gap-5 text-sm" style={{ color: "var(--color-muted-foreground)" }}>
-              <Link href="/models" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Models</Link>
-              <Link href="/demo" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>Demo</Link>
-              <Link href="/demo/profile" className="font-medium" style={{ color: "var(--color-foreground)" }}>Profile</Link>
-              <a href="#" className="hover:opacity-80">Docs</a>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <Avatar size="sm" fallback="JD" />
-          </div>
-        </div>
-      </nav>
+      {/* Topbar กลางทั้งระบบ (components/main-topbar) */}
+      <MainTopbar
+        navLinks={[
+          { label: "Models", href: "/models" },
+          { label: "Demo", href: "/demo" },
+          { label: "Profile", href: "/demo/profile" },
+          { label: "Docs", href: "/docs" },
+        ]}
+        rightExtra={<Avatar size="sm" fallback="JD" />}
+      />
 
       <div className="max-w-6xl mx-auto px-6 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10">
