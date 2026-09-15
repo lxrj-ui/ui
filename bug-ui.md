@@ -44,7 +44,7 @@
 | 2 | **NavigationMenu: hover intent + data-[open]** | ✅ เสร็จ 2026-08-31 — attr จริงคือ `data-popup-open` (Trigger/Icon) และ `data-open/data-closed` (Content/Popup) แก้ใน `navigation-menu.tsx` แล้ว + เพิ่มตัวอย่าง account dropdown ที่ `components/ui/topbar.tsx` (`AccountMenu` — hover intent ผ่าน Root `delay`/`closeDelay`, content ชิดขวาใต้ trigger ผ่าน Positioner `align="end"`) **⚠️ Content ต้องมีโครง `Portal > Positioner > Popup > Viewport` ครบ ไม่งั้นไม่ mount** (Base UI return null ถ้าไม่มี Viewport) |
 | 3 | **Tooltip** | ยังไม่มี — ผู้ใช้เริ่มถามหา |
 | 4 | **Breadcrumb** | ยังไม่มี |
-| 5 | ** Gordita font** | ยังไม่มี woff2 ใน repo (ตกลงใช้ Jakarta fallback ไปก่อน ✓) |
+| 5 | ** Gordita font** | ถอดออกแล้ว — brand ใช้ Jakarta แทน |
 | 6 | **Exports สำหรับใช้เป็น package** | ประกาศ `exports` map ใน package.json + peerDeps (react, react-dom, radix-ui/@base-ui, lucide-react, clsx, tailwind-merge, cva) เพื่อรองรับ `link:`/git dep นอกจาก vendor copy |
 
 ---

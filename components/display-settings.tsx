@@ -4,10 +4,10 @@ import * as React from "react";
 import { Sun, Moon, Check, Type, Palette } from "lucide-react";
 
 type Theme = "light" | "dark";
-type Font = "jakarta" | "gordita" | "inter" | "google-sans";
+type Font = "jakarta" | "inter" | "google-sans";
 
 const STORAGE_KEYS = { theme: "theme", font: "font" } as const;
-const VALID_FONTS: Font[] = ["jakarta", "gordita", "inter", "google-sans"];
+const VALID_FONTS: Font[] = ["jakarta", "inter", "google-sans"];
 
 function readStored<T extends string>(key: string, fallback: T, allowed: readonly T[]): T {
   try {
@@ -96,13 +96,6 @@ export function DisplaySettings() {
             description="Sans"
             selected={font === "jakarta"}
             onClick={() => chooseFont("jakarta")}
-          />
-          <RadioRow
-            icon={<Type size={14} />}
-            label="Gordita"
-            description="Brand"
-            selected={font === "gordita"}
-            onClick={() => chooseFont("gordita")}
           />
           <RadioRow
             icon={<Type size={14} />}

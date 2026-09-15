@@ -141,7 +141,7 @@
 
   /* Typography */
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-brand: "Gordita", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-brand: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
 
@@ -201,9 +201,6 @@ body {
 
 /* ── Font switch (override vars so EVERYTHING follows — body, headings,
       inline var(--font-sans)/var(--font-brand), Tailwind font-sans) ── */
-html[data-font="gordita"] {
-  --font-sans: "Gordita", "Plus Jakarta Sans", system-ui, sans-serif;
-}
 html[data-font="inter"] {
   --font-sans: "Inter", "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
   --font-brand: "Inter", "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
