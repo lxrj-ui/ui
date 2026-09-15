@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ChevronRight, Settings, ArrowDownUp, Layers, List, Table2, Type, Image as ImageIcon, Video, Mic, Boxes, AudioLines, FileInput, Tag, StretchHorizontal, DollarSign, LayoutGrid, Code, Building, User } from "lucide-react";
+import { ChevronRight, Settings, ArrowDownUp, Layers, List, Table2, Type, Image as ImageIcon, Video, Mic, Boxes, AudioLines, FileInput, Tag, StretchHorizontal, DollarSign, LayoutGrid, Code, Building, User, Search } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
