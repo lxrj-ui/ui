@@ -33,7 +33,7 @@ Open http://localhost:3001
 - **Focus**: `--focus-border` (foreground/30), `--focus-shadow` (3px glow) — neutral, not accent
 - **Chart**: `--color-chart-1..5`
 - **Radius**: `--radius-sm/md/lg/xl/full`
-- **Typography**: `--font-sans` (Plus Jakarta Sans), `--font-brand` (Plus Jakarta Sans), `--font-mono` (Geist Mono)
+- **Typography**: `--font-sans` (Google Sans), `--font-brand` (Google Sans), `--font-mono` (JetBrains Mono)
 
 ## Files
 ```

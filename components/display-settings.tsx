@@ -4,10 +4,10 @@ import * as React from "react";
 import { Sun, Moon, Check, Type, Palette } from "lucide-react";
 
 type Theme = "light" | "dark";
-type Font = "jakarta" | "inter" | "google-sans";
+type Font = "google-sans" | "inter";
 
 const STORAGE_KEYS = { theme: "theme", font: "font" } as const;
-const VALID_FONTS: Font[] = ["jakarta", "inter", "google-sans"];
+const VALID_FONTS: Font[] = ["google-sans", "inter"];
 
 function readStored<T extends string>(key: string, fallback: T, allowed: readonly T[]): T {
   try {
@@ -29,12 +29,12 @@ function applyFont(f: Font) {
 export function DisplaySettings() {
   const [open, setOpen] = React.useState(false);
   const [theme, setTheme] = React.useState<Theme>("dark");
-  const [font, setFont] = React.useState<Font>("jakarta");
+  const [font, setFont] = React.useState<Font>("google-sans");
   const ref = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const t = (document.documentElement.dataset.theme as Theme) || readStored<Theme>(STORAGE_KEYS.theme, "dark", ["light", "dark"] as const);
-    const f = (document.documentElement.dataset.font as Font) || readStored<Font>(STORAGE_KEYS.font, "jakarta", VALID_FONTS);
+    const f = (document.documentElement.dataset.font as Font) || readStored<Font>(STORAGE_KEYS.font, "google-sans", VALID_FONTS);
     setTheme(t);
     setFont(f);
   }, []);
@@ -92,10 +92,10 @@ export function DisplaySettings() {
           <div className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Font</div>
           <RadioRow
             icon={<Type size={14} />}
-            label="Jakarta"
-            description="Sans"
-            selected={font === "jakarta"}
-            onClick={() => chooseFont("jakarta")}
+            label="Google Sans"
+            description="หลัก · ไทย"
+            selected={font === "google-sans"}
+            onClick={() => chooseFont("google-sans")}
           />
           <RadioRow
             icon={<Type size={14} />}
@@ -103,13 +103,6 @@ export function DisplaySettings() {
             description="Sans · ไทย"
             selected={font === "inter"}
             onClick={() => chooseFont("inter")}
-          />
-          <RadioRow
-            icon={<Type size={14} />}
-            label="Google Sans"
-            description="Sans · ไทย"
-            selected={font === "google-sans"}
-            onClick={() => chooseFont("google-sans")}
           />
         </div>
       )}

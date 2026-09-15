@@ -139,11 +139,11 @@
   --radius-xl: 12px;
   --radius-full: 9999px;
 
-  /* Typography — Noto Sans Thai ต่อท้าย Jakarta เสมอ ไม่งั้นตัวไทยตกไปใช้
-     ฟอนต์ระบบที่ไม่มี weight ตรง เบราว์เซอร์ทำ faux-bold สังเคราะห์ = ตัวหนาฟุ้ง */
-  --font-sans: "Plus Jakarta Sans", "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
-  --font-brand: "Plus Jakarta Sans", "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  /* Typography — Google Sans เป็นหลัก (Jakarta ถอดออกแล้ว)
+     Noto Sans Thai ต่อท้ายเสมอ กันตัวไทยโดน faux-bold */
+  --font-sans: "Google Sans", "Google Sans Text", "Product Sans", "Noto Sans Thai", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-brand: "Google Sans", "Google Sans Text", "Product Sans", "Noto Sans Thai", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
 
 /* ── Dark mode (Grape → Volt swap) ── */
@@ -206,10 +206,6 @@ body {
 html[data-font="inter"] {
   --font-sans: "Inter", "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
   --font-brand: "Inter", "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
-}
-html[data-font="google-sans"] {
-  --font-sans: "Google Sans", "Google Sans Text", "Product Sans", "Noto Sans Thai", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-brand: "Google Sans", "Google Sans Text", "Product Sans", "Noto Sans Thai", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 /* ── Element-level heading styles (match OpenRouter — in @layer base so
