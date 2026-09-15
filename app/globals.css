@@ -199,14 +199,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-html[data-font="gordita"] body {
-  font-family: var(--font-brand);
+/* ── Font switch (override vars so EVERYTHING follows — body, headings,
+      inline var(--font-sans)/var(--font-brand), Tailwind font-sans) ── */
+html[data-font="gordita"] {
+  --font-sans: "Gordita", "Plus Jakarta Sans", system-ui, sans-serif;
 }
-html[data-font="inter"] body {
-  font-family: "Inter", var(--font-sans);
+html[data-font="inter"] {
+  --font-sans: "Inter", "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
+  --font-brand: "Inter", "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
 }
-html[data-font="google-sans"] body {
-  font-family: "Google Sans", "Google Sans Text", "Noto Sans Thai", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+html[data-font="google-sans"] {
+  --font-sans: "Google Sans", "Google Sans Text", "Product Sans", "Noto Sans Thai", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-brand: "Google Sans", "Google Sans Text", "Product Sans", "Noto Sans Thai", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 /* ── Element-level heading styles (match OpenRouter — in @layer base so
