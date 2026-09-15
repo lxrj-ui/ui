@@ -57,19 +57,7 @@ export default function ModelsPage() {
 
   return (
     <div className="min-h-screen" style={{ fontFamily: "var(--font-sans)", background: "var(--color-background)", color: "var(--color-foreground)" }}>
-      <MainTopbar
-        navLinks={[
-          { label: "Models", href: "/models" },
-          { label: "Benchmarks" },
-          { label: "Chat" },
-          { label: "Rankings", href: "/demo" },
-        ]}
-        rightExtra={
-          <a href="https://github.com/lxrj-ui/ui" target="_blank" rel="noreferrer" className="text-sm hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>
-            GitHub
-          </a>
-        }
-      />
+      <MainTopbar />
 
       <div className="flex max-w-[1600px] mx-auto">
         <nav className="hidden md:flex sticky top-14 h-[calc(100dvh-3.5rem)] w-66 shrink-0 flex-col gap-0 overflow-hidden border-r bg-card pl-6 pt-3 text-sm" style={{ borderColor: "var(--color-border)" }}>

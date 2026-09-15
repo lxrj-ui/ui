@@ -41,15 +41,7 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen" style={{ fontFamily: "var(--font-sans)", background: "var(--color-background)", color: "var(--color-foreground)" }}>
       {/* Topbar กลางทั้งระบบ (components/main-topbar) */}
-      <MainTopbar
-        navLinks={[
-          { label: "Models", href: "/models" },
-          { label: "Demo", href: "/demo" },
-          { label: "Profile", href: "/demo/profile" },
-          { label: "Docs", href: "/docs" },
-        ]}
-        rightExtra={<Avatar size="sm" fallback="JD" />}
-      />
+      <MainTopbar />
 
       <div className="max-w-6xl mx-auto px-6 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10">

@@ -81,21 +81,7 @@ export default function ModelsPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground" style={{ fontFamily: "var(--font-sans)" }}>
-      <MainTopbar
-        navLinks={[
-          { label: "Models", href: "/models" },
-          { label: "Benchmarks" },
-          { label: "Chat" },
-          { label: "Rankings", href: "/demo" },
-        ]}
-        rightExtra={
-          <button type="button" className="flex shrink-0 items-center gap-2 rounded-md p-1 hover:bg-muted/40 transition-colors">
-            <Avatar size="sm" fallback="P" />
-            <span className="hidden sm:inline text-sm font-medium">Personal</span>
-            <ChevronDown className="hidden sm:block size-3.5 text-muted-foreground" />
-          </button>
-        }
-      />
+        <MainTopbar />
 
       <div className="flex max-w-[1600px] mx-auto">
         <nav className="hidden md:flex sticky top-14 h-[calc(100dvh-3.5rem)] w-66 shrink-0 flex-col border-r border-border bg-card pl-6 pt-3 text-sm overflow-hidden">

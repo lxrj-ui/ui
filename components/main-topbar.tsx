@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import { DisplaySettings } from "./display-settings";
+import { Button } from "./ui/button";
 
 export type MainTopbarLink = {
   label: React.ReactNode;
@@ -18,15 +19,24 @@ function isActive(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(href + "/");
 }
 
+/** เมนูกลางทั้งระบบ — ทุกหน้าเหมือนกัน (Models/Demo/Components/Docs + Display + Get started) */
+export const defaultTopbarLinks: MainTopbarLink[] = [
+  { label: "Models", href: "/models" },
+  { label: "Demo", href: "/demo" },
+  { label: "Components", href: "/docs/components" },
+  { label: "Docs", href: "/docs" },
+];
+
 export function MainTopbar({
   logoHref = "/",
-  navLinks = [],
+  navLinks = defaultTopbarLinks,
   rightExtra,
   showSearch = true,
   className,
 }: {
   logoHref?: string;
   navLinks?: MainTopbarLink[];
+  /** แทนปุ่ม Get started (default) — Display ยังอยู่เสมอ */
   rightExtra?: React.ReactNode;
   showSearch?: boolean;
   className?: string;
@@ -74,7 +84,11 @@ export function MainTopbar({
         </nav>
         <div className="hidden sm:block h-5 w-px mx-1" style={{ backgroundColor: "var(--color-border)" }} />
         <DisplaySettings />
-        {rightExtra}
+        {rightExtra ?? (
+          <Link href="/docs/components">
+            <Button>Get started</Button>
+          </Link>
+        )}
       </div>
     </header>
   );

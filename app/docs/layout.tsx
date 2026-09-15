@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Sidebar } from "@/components/ui/sidebar";
 import { MainTopbar } from "@/components/main-topbar";
 
@@ -69,25 +68,7 @@ const sidebarGroups = [
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen transition-colors" style={{ background: "var(--color-background)" }}>
-      <MainTopbar
-        navLinks={[
-          { label: "Models", href: "/models" },
-          { label: "Docs", href: "/docs" },
-          { label: "Components", href: "/docs/components" },
-          { label: "Demo", href: "/demo" },
-          { label: "Profile", href: "/demo/profile" },
-        ]}
-        rightExtra={
-          <div className="hidden sm:flex items-center gap-4 text-sm">
-            <Link href="/DESIGN.md" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>
-              DESIGN.md
-            </Link>
-            <a href="https://github.com/lxrj-ui/ui" target="_blank" rel="noreferrer" className="hover:opacity-80" style={{ color: "var(--color-muted-foreground)" }}>
-              GitHub
-            </a>
-          </div>
-        }
-      />
+      <MainTopbar />
 
       <div className="flex max-w-[1280px] mx-auto">
         <div className="hidden lg:block">

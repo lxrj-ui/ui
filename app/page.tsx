@@ -382,19 +382,7 @@ export default function Home() {
   return (
     <div className="min-h-screen transition-colors" style={{ fontFamily: "var(--font-sans)" }}>
       {/* ── Nav ── */}
-      <MainTopbar
-        navLinks={[
-          { label: "Models", href: "/models" },
-          { label: "Demo", href: "/demo" },
-          { label: "Components", href: "/docs/components" },
-          { label: "Docs", href: "/docs" },
-        ]}
-        rightExtra={
-          <Link href="/docs/components">
-            <Button size="sm">Get started</Button>
-          </Link>
-        }
-      />
+        <MainTopbar />
 
       {/* ── Hero ── */}
       <div className="max-w-6xl mx-auto text-center pt-20 pb-10 px-6">
