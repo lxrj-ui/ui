@@ -49,7 +49,7 @@ export default function TablePage() {
                       <th className="or-table__header-cell text-left">Model Name</th>
                       <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Weekly Tokens</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon or-table__sort-icon--muted"><path d="m21 16-4 4-4-4M17 20V4m-14 4 4-4 4 4M7 4v16" /></svg></button></th>
                       <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Input</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon or-table__sort-icon--muted"><path d="m21 16-4 4-4-4M17 20V4m-14 4 4-4 4 4M7 4v16" /></svg></button></th>
-                      <th className="or-table__header-cell text-right">Output</th>
+                      <th className="or-table__header-cell text-right tabular-nums">Output</th>
                       <th className="or-table__header-cell text-right tabular-nums">Context</th>
                       <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Released</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon"><path d="M12 5v14m7-7-7 7-7-7" /></svg></button></th>
                       <th className="or-table__header-cell or-table__settings-head w-[50px]"><OrTableSettings /></th>
@@ -108,7 +108,7 @@ export default function TablePage() {
                     <th className="or-table__header-cell text-left">Model Name</th>
                     <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Weekly Tokens</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon or-table__sort-icon--muted"><path d="m21 16-4 4-4-4M17 20V4m-14 4 4-4 4 4M7 4v16" /></svg></button></th>
                     <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Input</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon or-table__sort-icon--muted"><path d="m21 16-4 4-4-4M17 20V4m-14 4 4-4 4 4M7 4v16" /></svg></button></th>
-                    <th className="or-table__header-cell text-right">Output</th>
+                    <th className="or-table__header-cell text-right tabular-nums">Output</th>
                     <th className="or-table__header-cell text-right tabular-nums">Context</th>
                     <th className="or-table__header-cell text-right tabular-nums"><button type="button" className="or-table__sort-button"><span>Released</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="or-table__sort-icon"><path d="M12 5v14m7-7-7 7-7-7" /></svg></button></th>
                     <th className="or-table__header-cell or-table__settings-head w-[50px]"><OrTableSettings /></th>

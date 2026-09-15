@@ -339,7 +339,9 @@ svg:not([fill]) {
   height: 2.5rem;
   padding: 0 1rem;
   text-align: left;
+  font-size: 12px;
   font-weight: 500;
+  letter-spacing: 0.02em;
   color: var(--color-muted-foreground);
   white-space: nowrap;
 }
