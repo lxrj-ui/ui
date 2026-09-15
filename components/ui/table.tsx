@@ -18,7 +18,7 @@ function Table({ className, density, ...props }: React.HTMLAttributes<HTMLTableE
     <div className="relative w-full overflow-auto">
       <table
         className={cn(
-          "w-full caption-bottom text-sm",
+          "w-full caption-bottom text-sm font-normal",
           density === "compact" && "or-table--density-compact",
           density === "comfortable" && "or-table--density-comfortable",
           className

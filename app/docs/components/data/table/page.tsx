@@ -139,37 +139,17 @@ export default function TablePage() {
 
       <h3 className="text-sm font-semibold mb-2">Props</h3>
       <div className="mb-4 overflow-hidden rounded-lg border text-sm" style={{ borderColor: "var(--color-border)" }}>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b text-left text-xs" style={{ borderColor: "var(--color-border)", color: "var(--color-muted-foreground)" }}>
-              <th className="px-4 py-2 font-medium">Prop</th>
-              <th className="px-4 py-2 font-medium">ค่าเริ่มต้น</th>
-              <th className="px-4 py-2 font-medium">คำอธิบาย</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-b" style={{ borderColor: "var(--color-border)" }}>
-              <td className="px-4 py-2 font-mono text-xs">controlsRef</td>
-              <td className="px-4 py-2">—</td>
-              <td className="px-4 py-2" style={{ color: "var(--color-muted-foreground)" }}>Ref ของ controls block ด้านบน — shell วัดขอบล่างด้วย ResizeObserver เพื่อคำนวณความสูง</td>
-            </tr>
-            <tr className="border-b" style={{ borderColor: "var(--color-border)" }}>
-              <td className="px-4 py-2 font-mono text-xs">header</td>
-              <td className="px-4 py-2">—</td>
-              <td className="px-4 py-2" style={{ color: "var(--color-muted-foreground)" }}>&lt;table&gt; ของหัวตาราง (ตารางแยกจากข้อมูล — คอลัมน์ตรงกันด้วย colgroup เดียวกัน)</td>
-            </tr>
-            <tr className="border-b" style={{ borderColor: "var(--color-border)" }}>
-              <td className="px-4 py-2 font-mono text-xs">children</td>
-              <td className="px-4 py-2">—</td>
-              <td className="px-4 py-2" style={{ color: "var(--color-muted-foreground)" }}>&lt;table&gt; ของแถวข้อมูล (ไม่ต้องมี thead)</td>
-            </tr>
-            <tr>
-              <td className="px-4 py-2 font-mono text-xs">fillParent</td>
-              <td className="px-4 py-2 font-mono text-xs">false</td>
-              <td className="px-4 py-2" style={{ color: "var(--color-muted-foreground)" }}>true = สูงเต็ม parent (flex-1) แทนสูตร 100dvh — ใช้เมื่อฝังใน container ที่กำหนดความสูงเอง</td>
-            </tr>
-          </tbody>
-        </table>
+        <OrModelsTable
+          layout="single"
+          sticky={false}
+          columns={[{ label: "Prop" }, { label: "ค่าเริ่มต้น" }, { label: "คำอธิบาย" }]}
+          rows={[
+            { key: "controlsRef", cells: [<code key="p" className="font-mono text-xs">controlsRef</code>, "—", <span key="d" style={{ color: "var(--color-muted-foreground)" }}>Ref ของ controls block ด้านบน — shell วัดขอบล่างด้วย ResizeObserver เพื่อคำนวณความสูง</span>] },
+            { key: "header", cells: [<code key="p" className="font-mono text-xs">header</code>, "—", <span key="d" style={{ color: "var(--color-muted-foreground)" }}>&lt;table&gt; ของหัวตาราง (ตารางแยกจากข้อมูล — คอลัมน์ตรงกันด้วย colgroup เดียวกัน)</span>] },
+            { key: "children", cells: [<code key="p" className="font-mono text-xs">children</code>, "—", <span key="d" style={{ color: "var(--color-muted-foreground)" }}>&lt;table&gt; ของแถวข้อมูล (ไม่ต้องมี thead)</span>] },
+            { key: "fillParent", cells: [<code key="p" className="font-mono text-xs">fillParent</code>, <code key="v" className="font-mono text-xs">false</code>, <span key="d" style={{ color: "var(--color-muted-foreground)" }}>true = สูงเต็ม parent (flex-1) แทนสูตร 100dvh — ใช้เมื่อฝังใน container ที่กำหนดความสูงเอง</span>] },
+          ]}
+        />
       </div>
 
       <h3 className="text-sm font-semibold mb-2">กฎที่ verify แล้ว (ห้ามลืม)</h3>

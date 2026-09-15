@@ -195,7 +195,7 @@ export default function ModelsPage() {
 
           <div ref={frameRef} className="flex flex-col overflow-hidden rounded-lg bg-card" style={{ height: "calc(100dvh - var(--or-table-sticky-top, 223px) - 1rem)" }}>
             <div className="rounded-t-lg border-t border-x border-border" style={{ backgroundColor: "var(--color-card)" }}>
-              <table className="w-full table-fixed border-separate border-spacing-0 text-sm">
+              <table className="w-full table-fixed border-separate border-spacing-0 text-sm font-normal">
                 <colgroup>
                   <col />
                   <col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" />
@@ -217,7 +217,7 @@ export default function ModelsPage() {
               </table>
             </div>
             <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-b-lg border-x border-b border-border [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <table className="w-full table-fixed border-separate border-spacing-0 text-sm [&_tr:last-child]:border-b-0 [&_tr:last-child>td:first-child]:rounded-bl-lg [&_tr:last-child>td:last-child]:rounded-br-lg">
+            <table className="w-full table-fixed border-separate border-spacing-0 text-sm font-normal [&_tr:last-child]:border-b-0 [&_tr:last-child>td:first-child]:rounded-bl-lg [&_tr:last-child>td:last-child]:rounded-br-lg">
               <colgroup>
                 <col />
                 <col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" /><col className="w-[9%]" />

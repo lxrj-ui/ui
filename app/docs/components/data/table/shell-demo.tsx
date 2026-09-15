@@ -38,7 +38,7 @@ export function TableShellDemo() {
         <span className="text-xs text-muted-foreground">controls block — shell วัดขอบล่าง block นี้</span>
       </div>
       <DataTableShell fillParent controlsRef={controlsRef} header={
-        <table className="w-full table-fixed border-separate border-spacing-0 text-sm">
+        <table className="w-full table-fixed border-separate border-spacing-0 text-sm font-normal">
           <ColGroup />
           <thead>
             <tr className="text-left text-xs text-muted-foreground [&_th]:leading-5">
@@ -55,7 +55,7 @@ export function TableShellDemo() {
           </thead>
         </table>
       }>
-        <table className="w-full table-fixed border-separate border-spacing-0 text-sm [&_tr:last-child]:border-b-0 [&_tr:last-child>td:first-child]:rounded-bl-lg [&_tr:last-child>td:last-child]:rounded-br-lg">
+        <table className="w-full table-fixed border-separate border-spacing-0 text-sm font-normal [&_tr:last-child]:border-b-0 [&_tr:last-child>td:first-child]:rounded-bl-lg [&_tr:last-child>td:last-child]:rounded-br-lg">
           <ColGroup />
           <tbody>
             {rows.map((m) => (

@@ -35,6 +35,8 @@ type OrModelsTableProps = {
   density?: "compact" | "regular" | "comfortable";
   /** "lg" = ตัว 15px แบบ /models (default 14px ตาม --text-body) */
   size?: "md" | "lg";
+  /** false = หัวไม่ sticky (ตาราง doc เล็กๆ กลางหน้า) */
+  sticky?: boolean;
   className?: string;
 };
 
@@ -117,6 +119,7 @@ export function OrModelsTable({
   minWidth,
   density,
   size = "md",
+  sticky = true,
   className,
 }: OrModelsTableProps) {
   // fixed ต่อเมื่อทุกคอลัมน์มี width (docs) — ไม่มี width ใช้ auto
@@ -153,16 +156,24 @@ export function OrModelsTable({
     return (
       <table className={tableCls} style={minWidth ? { minWidth } : undefined}>
         <colgroup>{widths}</colgroup>
-        <thead
-          className="sticky z-10"
-          style={{
-            top: stickyTop ?? 0,
-            backgroundColor: "var(--color-card)",
-            boxShadow: "inset 0 -1px 0 var(--color-border)",
-          }}
-        >
-          <tr>{heads}</tr>
-        </thead>
+        {sticky ? (
+          <thead
+            className="sticky z-10"
+            style={{
+              top: stickyTop ?? 0,
+              backgroundColor: "var(--color-card)",
+              boxShadow: "inset 0 -1px 0 var(--color-border)",
+            }}
+          >
+            <tr>{heads}</tr>
+          </thead>
+        ) : (
+          <thead>
+            <tr className="border-b" style={{ borderColor: "var(--color-border)" }}>
+              {heads}
+            </tr>
+          </thead>
+        )}
         <tbody>
           <BodyRows columns={columns} rows={rows} settings={settings} />
         </tbody>
@@ -170,9 +181,11 @@ export function OrModelsTable({
     );
   }
 
+  const headerWrapCls = sticky ? "or-table-page-scroll__header" : undefined;
+  const headerWrapStyle = sticky ? (stickyTop ? { top: stickyTop } : undefined) : { position: "static" as const };
   return (
     <div className="or-table-page-scroll">
-      <div className="or-table-page-scroll__header" style={stickyTop ? { top: stickyTop } : undefined}>
+      <div className={headerWrapCls} style={headerWrapStyle}>
         <table className={tableCls} data-table-has-sticky-header="true" style={minWidth ? { minWidth } : undefined}>
           <colgroup>{widths}</colgroup>
           <thead className="or-table__header or-table__header--sticky">
