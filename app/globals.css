@@ -196,7 +196,8 @@ body {
   line-height: var(--leading-body);
   font-weight: var(--font-weight-normal);
   font-variant-numeric: tabular-nums;
-  -webkit-font-smoothing: antialiased;
+  /* ห้ามบังคับ antialiased — บน Windows มันปิด ClearType (subpixel)
+     ทำให้ตัวหนังสือทั้งหน้าดูฟุ้งกว่าเว็บอื่น ปล่อยให้ OS เลือกเอง */
 }
 
 /* ── Font switch (override vars so EVERYTHING follows — body, headings,
