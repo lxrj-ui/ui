@@ -69,11 +69,11 @@ export default function TablePage() {
                     ].map((r) => (
                       <tr key={r.name} className="border-b last:border-0 hover:bg-[var(--color-card-hover)] transition-colors" style={{ borderColor: "var(--color-border)" }}>
                         <td className="px-4 py-3 text-sm"><span className="truncate">{r.name}</span></td>
-                        <td className="px-4 py-3 tabular-nums text-right text-sm">{r.tokens}</td>
-                        <td className="px-4 py-3 tabular-nums text-right text-sm">{r.input}</td>
-                        <td className="px-4 py-3 tabular-nums text-right text-sm">{r.output}</td>
-                        <td className="px-4 py-3 tabular-nums text-right text-sm">{r.ctx}</td>
-                        <td className="px-4 py-3 tabular-nums text-right text-sm">{r.ago}</td>
+                        <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.tokens}</td>
+                        <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.input}</td>
+                        <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.output}</td>
+                        <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.ctx}</td>
+                        <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.ago}</td>
                         <td className="px-4 py-3"></td>
                       </tr>
                     ))}
@@ -128,11 +128,11 @@ export default function TablePage() {
                   ].map((r) => (
                     <tr key={r.name} className="border-b last:border-0 hover:bg-[var(--color-card-hover)] transition-colors" style={{ borderColor: "var(--color-border)" }}>
                       <td className="px-4 py-3 text-sm"><span className="truncate">{r.name}</span></td>
-                      <td className="px-4 py-3 tabular-nums text-right text-sm">{r.tokens}</td>
-                      <td className="px-4 py-3 tabular-nums text-right text-sm">{r.input}</td>
-                      <td className="px-4 py-3 tabular-nums text-right text-sm">{r.output}</td>
-                      <td className="px-4 py-3 tabular-nums text-right text-sm">{r.ctx}</td>
-                      <td className="px-4 py-3 tabular-nums text-right text-sm">{r.ago}</td>
+                      <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.tokens}</td>
+                      <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.input}</td>
+                      <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.output}</td>
+                      <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.ctx}</td>
+                      <td className="px-4 py-3 whitespace-nowrap tabular-nums text-right text-sm">{r.ago}</td>
                       <td className="px-4 py-3"></td>
                     </tr>
                   ))}
