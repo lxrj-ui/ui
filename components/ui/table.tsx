@@ -18,7 +18,7 @@ function Table({ className, density, ...props }: React.HTMLAttributes<HTMLTableE
     <div className="relative w-full overflow-auto">
       <table
         className={cn(
-          "w-full caption-bottom text-sm font-normal",
+          "w-full caption-bottom text-[13px] font-normal",
           density === "compact" && "or-table--density-compact",
           density === "comfortable" && "or-table--density-comfortable",
           className
@@ -81,7 +81,7 @@ function TableHead({ className, numeric, grid, sortable, sortDirection, onSort, 
   return (
     <th
       className={cn(
-        "h-10 px-4 text-left font-medium align-middle",
+        "h-9 px-4 text-[12px] text-left font-medium align-middle",
         numeric && "text-right tabular-nums",
         grid && "or-table__cell--grid",
         sortable && "cursor-pointer select-none hover:text-foreground transition-colors",

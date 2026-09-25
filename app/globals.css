@@ -37,14 +37,15 @@
   --text-display: 24px;
   --text-hero: 36px;
 
-  /* Font weight: DESIGN.md body register is 450, not 400 */
-  --font-weight-normal: 450;
+  /* Font weight: Google Sans has 400/500/700 — ไม่มี 450 เหมือน Gordita
+     ใช้ 400 ถ้าต้องการ 450 ให้ใช้ Inter ซึ่งมี 450 */
+  --font-weight-normal: 400;
   --weight-hero: 700;
   --weight-display: 700;
   --weight-title: 600;
   --weight-section: 500;
   --weight-heading: 600;
-  --weight-body: 450;
+  --weight-body: 400;
   --weight-button: 500;
   --weight-overline: 500;
 
@@ -315,7 +316,7 @@ svg:not([fill]) {
 .or-table {
   width: 100%;
   caption-side: bottom;
-  font-size: var(--text-body);
+  font-size: 13px;
   font-weight: 400;
 }
 /* ตัวใหญ่แบบ /models (หัว 12px ไม่โดนเพราะ header-cell ล็อกไว้เอง) */
@@ -339,7 +340,7 @@ svg:not([fill]) {
   background: var(--color-background);
 }
 .or-table__header-cell {
-  height: 2.5rem;
+  height: 2.25rem;
   padding: 0 1rem;
   text-align: left;
   font-size: 12px;
