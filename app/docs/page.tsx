@@ -28,7 +28,7 @@ export default function DocsPage() {
       </div>
 
       <h2 className="text-xl font-semibold mb-3" style={{ color: "var(--color-foreground)" }}>Quick start</h2>
-      <pre className="rounded-md border p-4 text-xs font-mono leading-6 mb-6" style={{ background: "var(--color-card)", borderColor: "var(--color-border)", fontFamily: "var(--font-mono)" }}>
+      <pre className="rounded-md border p-4 text-xs overflow-x-auto font-mono leading-6 mb-6" style={{ background: "var(--color-card)", borderColor: "var(--color-border)", fontFamily: "var(--font-mono)" }}>
 {`git clone https://github.com/lxrj-ui/ui lxrj-ui
 cd lxrj-ui
 bun install

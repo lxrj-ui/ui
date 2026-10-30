@@ -312,6 +312,15 @@ svg:not([fill]) {
   display: none;
 }
 
+/* ── Base UI gallery (app/docs/components) — demo card เป็น scroll container ──
+   demo ที่ยกมาจาก Base UI docs หลายตัวมีความกว้างคงที่ (toolbar w-150,
+   select min-w-40, tabs w-max) ถ้าปล่อยไว้จะดัน document ทั้งหน้าเลื่อนแนวนอน
+   บนมือถือ → ให้ card เลื่อนในตัวเองแทน (pattern §6 responsive-mobile-ia) */
+.base-ui-gallery section[id] {
+  min-width: 0;
+  overflow-x: auto;
+}
+
 /* ── OR-Table (OpenRouter-style table patterns) ── */
 .or-table {
   width: 100%;

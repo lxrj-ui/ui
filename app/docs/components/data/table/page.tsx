@@ -62,7 +62,9 @@ export default function TablePage() {
           </div>
         </div>
         <AnatomyChip n={1} className="top-2 left-2" />
-        <AnatomyChip n={2} className="top-2 left-[calc(280px+140px+110px+110px+130px+100px+20px)]" />
+        {/* ชิป 2 ชี้หัวคอลัมน์ที่ตำแหน่งคงที่ ~890px — บน phone จะล้นจอ
+            (ทำให้ document เลื่อนแนวนอน) จึงซ่อนเฉพาะจอแคบ */}
+        <AnatomyChip n={2} className="top-2 left-[calc(280px+140px+110px+110px+130px+100px+20px)] max-md:hidden" />
         <AnatomyChip n={3} className="top-1/2 left-2" />
         <AnatomyChip n={4} className="top-2 right-2" />
       </div>

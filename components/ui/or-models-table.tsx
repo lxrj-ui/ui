@@ -154,30 +154,37 @@ export function OrModelsTable({
 
   if (layout === "single") {
     return (
-      <table className={tableCls} style={minWidth ? { minWidth } : undefined}>
-        <colgroup>{widths}</colgroup>
-        {sticky ? (
-          <thead
-            className="sticky z-10"
-            style={{
-              top: stickyTop ?? 0,
-              backgroundColor: "var(--color-card)",
-              boxShadow: "inset 0 -1px 0 var(--color-border)",
-            }}
-          >
-            <tr>{heads}</tr>
-          </thead>
-        ) : (
-          <thead>
-            <tr className="border-b" style={{ borderColor: "var(--color-border)" }}>
-              {heads}
-            </tr>
-          </thead>
-        )}
-        <tbody>
-          <BodyRows columns={columns} rows={rows} settings={settings} />
-        </tbody>
-      </table>
+      // มือถือ: ตารางกว้างคงที่ (min-width) ต้องเลื่อนในกล่องตัวเอง ไม่ใช่ดัน
+      // document ทั้งหน้า — desktop คง overflow visible ไว้ให้ thead sticky
+      // ทำงานเทียบ viewport (overflow อะไรก็ตามจะทำให้ sticky อ้างกล่องนั้นแทน)
+      <div className="overflow-x-auto lg:overflow-visible">
+        <table className={tableCls} style={minWidth ? { minWidth } : undefined}>
+          <colgroup>{widths}</colgroup>
+          {sticky ? (
+            <thead
+              // phone: thead ไม่ต้อง sticky — กล่องเลื่อนแนวนอนทำให้ sticky
+              // อ้างกล่องนั้นแทน viewport (หัวตารางไปลอยค้างกลางรายการ)
+              className="sticky z-10 max-lg:static"
+              style={{
+                top: stickyTop ?? 0,
+                backgroundColor: "var(--color-card)",
+                boxShadow: "inset 0 -1px 0 var(--color-border)",
+              }}
+            >
+              <tr>{heads}</tr>
+            </thead>
+          ) : (
+            <thead>
+              <tr className="border-b" style={{ borderColor: "var(--color-border)" }}>
+                {heads}
+              </tr>
+            </thead>
+          )}
+          <tbody>
+            <BodyRows columns={columns} rows={rows} settings={settings} />
+          </tbody>
+        </table>
+      </div>
     );
   }
 

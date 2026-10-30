@@ -98,8 +98,10 @@ export default function ModelsPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 mt-3">
-              <div className="relative w-80">
+            {/* filter bar: flex-wrap ให้ตกบรรทัดบนจอแคบ แทนที่จะดัน document
+                เลื่อนแนวนอน (pattern: responsive-mobile-ia §6) */}
+            <div className="flex flex-wrap items-center gap-2 mt-3">
+              <div className="relative w-full sm:w-80">
                 <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: "var(--color-text-faint)" }} />
                 <Input placeholder="Search models..." value={q} onChange={(e) => setQ(e.target.value)} className="pl-9 h-9 text-sm" />
               </div>

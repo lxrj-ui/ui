@@ -38,6 +38,7 @@ const components = [
   { category: "Navigation", items: [
     { name: "Pagination", href: "/docs/components/navigation/pagination", description: "Prev/next page navigation" },
     { name: "SegmentedControl", href: "/docs/components/navigation/segmented-control", description: "Value picker — track + active segment" },
+    { name: "BottomTabs", href: "/docs/components/navigation/bottom-tabs", description: "Phone bottom navigation — 4 tabs + More sheet" },
   ]},
   { category: "Layout", items: [
     { name: "ButtonGroup", href: "/docs/components/layout/button-group", description: "Fused button row — shared variant" },

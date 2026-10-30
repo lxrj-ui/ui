@@ -191,7 +191,10 @@ function AccountMenuItem({
 /** ตัวอย่างครบชุด — ใช้เป็น template ในหน้า doc/demo */
 export function TopbarDemo() {
   return (
-    <Topbar className="rounded-lg border">
+    // ภาพของ topbar แบบ desktop (ความกว้างขั้นต่ำ ~486px): บนจอแคบให้เลื่อน
+    // ในกล่องตัวเอง ไม่ปล่อยให้ดัน document ทั้งหน้าเลื่อนแนวนอน
+    <div className="overflow-x-auto">
+      <Topbar className="rounded-lg border">
       <TopbarSection>
         <TopbarBrand href="#">
           <span
@@ -214,7 +217,8 @@ export function TopbarDemo() {
         </button>
         <AccountMenu />
       </TopbarSection>
-    </Topbar>
+      </Topbar>
+    </div>
   );
 }
 

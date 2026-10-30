@@ -633,6 +633,23 @@ Icon library: a single line-icon set (e.g. Lucide/Heroicons-outline) at a consis
 
 **Dense-data exemption.** Tables and other information-dense controls may use the half-step grid (e.g. 10/14px cell padding, 28/32px rows, 14px `icon` in cells) and `text-overline`-sized captions where the even-increment scale would otherwise force wasteful height. This is the *only* sanctioned departure from the scale; don't use it as a general escape hatch.
 
+### Responsive & mobile IA
+
+One codebase, one component set — **the information architecture changes at a single breakpoint, the design system does not**. No second stylesheet, no `m.` host, no user-agent sniffing; the phone is the same product with a different shell.
+
+**Breakpoint.** `lg` (64rem / **1024px**) is the phone boundary: at or above it the desktop shell renders, below it the phone shell. 640px is the only secondary step and is reserved for two cases — a large dialog going full-screen, and a row whose actions must drop under its name. Choose the number from content, not fashion: the boundary sits where a 15rem sidebar stops leaving room for data-dense pages. JS reads the same value through `useIsPhone()` (`lib/use-is-phone.ts`, `PHONE_QUERY`) — never a second hard-coded number.
+
+**Navigation morphs, it never disappears.** ≥1024px: persistent sidebar. <1024px: **bottom tabs** (`components/ui/bottom-tabs.tsx`) with 3–4 primary destinations plus **More**, which opens a `Sheet side="bottom"` containing every remaining destination in the sidebar's own groups. The tab bar owns the bottom edge (`fixed`, `z-30`, `border-t`, `pb-[env(safe-area-inset-bottom)]`) and page content reserves its height. Tab labels are one word, 11px, sentence case; the hit area is ≥44px. Every destination stays reachable — a hidden menu is not a mobile design.
+
+**Overlays rise from the bottom.** Below 1024px a sheet/dialog/menu enters from the bottom edge: `Sheet side="bottom"`, `max-h-[88dvh]` (the page stays visible behind it, so it reads as dismissible), top-only `rounded-t-xl`, a drag handle, and safe-area padding under the last action. Same component and same layer stack on both sides of the breakpoint — only the entry direction changes.
+
+**Touch sizing follows the layout, not the device.** A tablet with a mouse still gets the desktop shell; a narrow window gets touch sizing. Enlarge the *hit area* to ≥44px (`min-h-11`) — never the type scale or the card padding. Focus treatment stays neutral (see §Focus).
+
+**Data-heavy pages drill down instead of compressing.** A matrix or table that cannot fit keeps its desktop form and becomes a focused, full-height screen on the phone (list → detail → back), rather than shrinking to unreadable columns. When the same table also appears in a narrow panel, collapse it with a **container query** (`@container`, `container-type: inline-size`), not a media query — the media query would answer for the viewport and get the panel wrong.
+
+**Viewport.** Use `100dvh` (not bare `100vh`) for full-height regions, and pair `env(safe-area-inset-*)` with `viewport-fit=cover` so notches and home indicators never sit on top of chrome. Full checklist and pitfalls: `brain/patterns/responsive-mobile-ia.md`.
+
+
 ### Operational task workspaces
 
 Mission Control pages that configure and launch durable work keep lifecycle state ahead of configuration. Lead with one current/latest-run summary containing status, progress, last activity, operator, logs, and the active cancellation action. An operator should never need to scroll through a long form to discover that work is already running.

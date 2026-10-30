@@ -125,7 +125,9 @@ export default function ModelsPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              {/* flex-wrap: ช่องค้นหา + select ใช้ w-full บนจอแคบ ถ้าไม่ wrap
+                  แถวจะกว้างเกินจอและดัน document เลื่อนแนวนอน (§6) */}
+              <div className="flex flex-wrap items-center gap-2">
                 <div className="relative w-full md:w-80">
                   <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                   <Input placeholder="Search models..." value={q} onChange={(e) => setQ(e.target.value)} className="pl-9 h-9" />
